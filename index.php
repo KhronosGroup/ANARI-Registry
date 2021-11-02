@@ -11,9 +11,9 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <p> The current version of ANARI is 1.0-provisional: </p>
 
 <ul>
-<li> ANARI 1.0 Provisional Specification in
+<li> ANARI 1.0 Provisional Specification
      <a href="https://github.com/KhronosGroup/ANARI-Registry/blob/main/specs/1.0-provisional/ANARI-1.0-provisional.pdf">
-     Markdown</a> (PDF rendered by GitHub). </li>
+     PDF</a> (rendered by GitHub). </li>
 </ul>
 
 <p> Khronos welcomes comments and issue reports. </p>
