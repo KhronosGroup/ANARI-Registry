@@ -4,15 +4,15 @@ $static_title = 'Khronos ANARI Registry';
 include_once("../../assets/static_pages/khr_page_top.php");
 ?>
 
-<p> The ANARI registry contains the specification of the ANARI 3D visualization interface API. </p>
+<p> The ANARI registry contains the specification of the ANARI 3D rendering engine interface API. </p>
 
 <h2> <a name="specs"></a> <b>ANARI Specification</b> </h2>
 
-<p> The current version of ANARI is 1.0-provisional: </p>
+<p> The current version of ANARI is 1.0: </p>
 
 <ul>
-<li> ANARI 1.0 Provisional Specification
-     <a href="https://github.com/KhronosGroup/ANARI-Registry/blob/main/specs/1.0-provisional/ANARI-1.0-provisional.pdf">
+<li> ANARI 1.0 Specification (Ratification Pending)
+     <a href="https://github.com/KhronosGroup/ANARI-Registry/blob/main/specs/1.0/ANARI-1.0.pdf">
      PDF</a> (rendered by GitHub). </li>
 </ul>
 
