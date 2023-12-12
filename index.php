@@ -11,7 +11,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
 <p> The current version of ANARI is 1.0: </p>
 
 <ul>
-<li> ANARI 1.0 Specification (Ratification Pending)
+<li> ANARI 1.0 Specification
      <a href="https://github.com/KhronosGroup/ANARI-Registry/blob/main/specs/1.0/ANARI-1.0.pdf">
      PDF</a> (rendered by GitHub). </li>
 </ul>
