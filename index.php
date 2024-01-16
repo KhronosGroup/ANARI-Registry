@@ -12,6 +12,7 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <ul>
 <li> ANARI 1.0 Specification
+     <a href="https://registry.khronos.org/ANARI/specs/1.0/ANARI-1.0.html">HTML</a> or
      <a href="https://github.com/KhronosGroup/ANARI-Registry/blob/main/specs/1.0/ANARI-1.0.pdf">
      PDF</a> (rendered by GitHub). </li>
 </ul>
