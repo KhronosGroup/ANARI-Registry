@@ -15,6 +15,11 @@ include_once("../../assets/static_pages/khr_page_top.php");
      <a href="https://registry.khronos.org/ANARI/specs/1.0/ANARI-1.0.html">HTML</a> or
      <a href="https://github.com/KhronosGroup/ANARI-Registry/blob/main/specs/1.0/ANARI-1.0.pdf">
      PDF</a> (rendered by GitHub). </li>
+
+<li> (Draft) ANARI 1.1 Specification
+     <a href="https://registry.khronos.org/ANARI/specs/1.1-draft/ANARI-1.1.html">HTML</a> or
+     <a href="https://github.com/KhronosGroup/ANARI-Registry/blob/main/specs/1.1-draft/ANARI-1.1.pdf">
+     PDF</a> (rendered by GitHub). </li>
 </ul>
 
 <p> Khronos welcomes comments and issue reports. </p>
