@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.1.0,</span>
-<span id="revdate">2025-04-08 16:29:08Z</span>
+<span id="revdate">2025-04-14 15:19:57Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -6473,6 +6473,60 @@ materials. To create a new sampler use</p>
 <pre class="CodeRay highlight"><code data-lang="cpp">ANARISampler anariNewSampler(ANARIDevice, <span class="directive">const</span> <span class="predefined-type">char</span> *subtype);</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 45. <a href="#api_concepts_parameters">Parameters</a> understood by samplers.</caption>
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 16.6666%;">
+<col style="width: 12.5%;">
+<col style="width: 58.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-right valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">outTransform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_MAT4</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">transform applied to the sampled values</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">outOffset</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">(0, 0, 0, 0)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">offset added to output transform result</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The sampled value is completed to four components (if needed: unspecified
+components default to zero for the first three components and to one for the
+fourth component), multiplied by <code>outTransform</code> and added to <code>outOffset</code> to
+yield the final result of the sampler.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>Like all <code>FLOAT32_MAT4</code> matrices <code>outTransform</code> is in column-major memory layout
+and is applied to column vectors (multiplied from the left <code>outTransform * x<br>
+outOffset</code>).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
 <h4 id="object_types_sampler_image1D"><a class="anchor" href="#object_types_sampler_image1D"></a>5.10.1. Image1D</h4>
 <div class="paragraph">
@@ -6483,7 +6537,7 @@ materials. To create a new sampler use</p>
 parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 45. <a href="#api_concepts_parameters">Parameters</a> understood by the 1D image sampler.</caption>
+<caption class="title">Table 46. <a href="#api_concepts_parameters">Parameters</a> understood by the 1D image sampler.</caption>
 <colgroup>
 <col style="width: 16.3265%;">
 <col style="width: 16.3265%;">
@@ -6535,18 +6589,6 @@ parameters.</p>
 <td class="tableblock halign-right valign-top"><p class="tableblock"><code>clampToEdge</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code></p></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">outTransform</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_MAT4</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transform applied to the sampled values</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">outOffset</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">(0, 0, 0, 0)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">offset added to output transform result</p></td>
-</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -6554,10 +6596,7 @@ parameters.</p>
 <code>inTransform</code> and added to the <code>inOffset</code>, then its first component is used as normalized coordinate
 to sample <code>image</code>, taking <code>filter</code> and <code>wrapMode</code> into account. Refer to
 <a href="#vulkan-samplers">[vulkan-samplers]</a> for the exact definitions of the sampling and filtering
-operation. The sampled value is completed to four components (if needed:
-unspecified components default to zero for the first three components and to one
-for the fourth component), multiplied by <code>outTransform</code> and added to <code>outOffset</code> to yield the final
-result of the sampler.</p>
+operation.</p>
 </div>
 <div class="paragraph">
 <p>Applications which set unknown values for <code>filter</code> will result in the default
@@ -6572,9 +6611,9 @@ being used.</p>
 <td class="content">
 <div class="title">Note</div>
 <div class="paragraph">
-<p>Like all <code>FLOAT32_MAT4</code> matrices, <code>inTransform</code> and <code>outTransform</code> are
-in column-major memory layout and are applied to column vectors
-(multiplied from the left <code>transform * x + offset</code>).</p>
+<p>Like all <code>FLOAT32_MAT4</code> matrices <code>inTransform</code> is in column-major memory layout
+and is applied to column vectors (multiplied from the left <code>inTransform * x<br>
+inOffset</code>).</p>
 </div>
 </td>
 </tr>
@@ -6590,7 +6629,7 @@ in column-major memory layout and are applied to column vectors
 <p>A two dimensional image sampler is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string <code>image2D</code>. It accepts the following parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 46. <a href="#api_concepts_parameters">Parameters</a> understood by the 2D image sampler.</caption>
+<caption class="title">Table 47. <a href="#api_concepts_parameters">Parameters</a> understood by the 2D image sampler.</caption>
 <colgroup>
 <col style="width: 16.3265%;">
 <col style="width: 16.3265%;">
@@ -6648,18 +6687,6 @@ in column-major memory layout and are applied to column vectors
 <td class="tableblock halign-right valign-top"><p class="tableblock"><code>clampToEdge</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 2nd dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code></p></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">outTransform</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_MAT4</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transform applied to the sampled values</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">outOffset</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">(0, 0, 0, 0)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">offset added to output transform result</p></td>
-</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -6667,10 +6694,7 @@ in column-major memory layout and are applied to column vectors
 <code>inTransform</code> and added to the <code>inOffset</code>, then its first component is used as normalized coordinate
 to sample <code>image</code>, taking <code>filter</code> and <code>wrapMode</code> into account. Refer to
 <a href="#vulkan-samplers">[vulkan-samplers]</a> for the exact definitions of the sampling and filtering
-operation. The sampled value is completed to four components (if needed:
-unspecified components default to zero for the first three components and to one
-for the fourth component), multiplied by <code>outTransform</code> and added to <code>outOffset</code> to yield the final
-result of the sampler.</p>
+operation.</p>
 </div>
 <div class="paragraph">
 <p>Applications which set unknown values for <code>filter</code> will result in the default
@@ -6685,9 +6709,9 @@ being used.</p>
 <td class="content">
 <div class="title">Note</div>
 <div class="paragraph">
-<p>Like all <code>FLOAT32_MAT4</code> matrices, <code>inTransform</code> and <code>outTransform</code> are
-in column-major memory layout and are applied to column vectors
-(multiplied from the left <code>transform * x + offset</code>).</p>
+<p>Like all <code>FLOAT32_MAT4</code> matrices <code>inTransform</code> is in column-major memory layout
+and is applied to column vectors (multiplied from the left <code>inTransform * x<br>
+inOffset</code>).</p>
 </div>
 </td>
 </tr>
@@ -6703,7 +6727,7 @@ in column-major memory layout and are applied to column vectors
 <p>A three dimensional image sampler is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string <code>image3D</code>. It accepts the following parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 47. <a href="#api_concepts_parameters">Parameters</a> understood by the 3D image sampler.</caption>
+<caption class="title">Table 48. <a href="#api_concepts_parameters">Parameters</a> understood by the 3D image sampler.</caption>
 <colgroup>
 <col style="width: 16.3265%;">
 <col style="width: 16.3265%;">
@@ -6767,18 +6791,6 @@ in column-major memory layout and are applied to column vectors
 <td class="tableblock halign-right valign-top"><p class="tableblock"><code>clampToEdge</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 3rd dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code></p></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">outTransform</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_MAT4</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transform applied to the sampled values</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">outOffset</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">(0, 0, 0, 0)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">offset added to output transform result</p></td>
-</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -6786,10 +6798,7 @@ in column-major memory layout and are applied to column vectors
 <code>inTransform</code> and added to the <code>inOffset</code>, then its first component is used as normalized coordinate
 to sample <code>image</code>, taking <code>filter</code> and <code>wrapMode</code> into account. Refer to
 <a href="#vulkan-samplers">[vulkan-samplers]</a> for the exact definitions of the sampling and filtering
-operation. The sampled value is completed to four components (if needed:
-unspecified components default to zero for the first three components and to one
-for the fourth component), multiplied by <code>outTransform</code> and added to <code>outOffset</code> to yield the final
-result of the sampler.</p>
+operation.</p>
 </div>
 <div class="paragraph">
 <p>Applications which set unknown values for <code>filter</code> will result in the default
@@ -6804,9 +6813,9 @@ being used.</p>
 <td class="content">
 <div class="title">Note</div>
 <div class="paragraph">
-<p>Like all <code>FLOAT32_MAT4</code> matrices, <code>inTransform</code> and <code>outTransform</code> are
-in column-major memory layout and are applied to column vectors
-(multiplied from the left <code>transform * x + offset</code>).</p>
+<p>Like all <code>FLOAT32_MAT4</code> matrices <code>inTransform</code> is in column-major memory layout
+and is applied to column vectors (multiplied from the left <code>inTransform * x<br>
+inOffset</code>).</p>
 </div>
 </td>
 </tr>
@@ -6825,7 +6834,7 @@ It is created by calling <a href="#object_types_sampler"><code>anariNewSampler</
 The <code>inOffset</code> parameter value is added to <code>primitiveID</code> before sampling.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 48. <a href="#api_concepts_parameters">Parameters</a> understood by the primitive sampler.</caption>
+<caption class="title">Table 49. <a href="#api_concepts_parameters">Parameters</a> understood by the primitive sampler.</caption>
 <colgroup>
 <col style="width: 11.1111%;">
 <col style="width: 22.2222%;">
@@ -6864,8 +6873,8 @@ The <code>inOffset</code> parameter value is added to <code>primitiveID</code> b
 <td class="content">
 <div class="title">Note</div>
 <div class="paragraph">
-<p>Primitive samplers serve a similar role as per primitive attributes on geometries but are attached to the material
-instead.</p>
+<p>Primitive samplers serve a similar role as per primitive attributes on
+geometries but are attached to the material instead.</p>
 </div>
 </td>
 </tr>
@@ -6878,13 +6887,12 @@ instead.</p>
 <p>Extension <code>KHR_SAMPLER_TRANSFORM</code></p>
 </div>
 <div class="paragraph">
-<p>The transform sampler multiplies by the input attribute by <code>outTransform</code> and
-adds it <code>outOffset</code> returns the result as the sampled value. It is created by
-calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string
-<code>transform</code>.</p>
+<p>The transform sampler simply uses the input attribute as the "sampled" value. It
+is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype
+string <code>transform</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 49. <a href="#api_concepts_parameters">Parameters</a> understood by the transform sampler.</caption>
+<caption class="title">Table 50. <a href="#api_concepts_parameters">Parameters</a> understood by the transform sampler.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -6906,18 +6914,6 @@ calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with su
 <td class="tableblock halign-right valign-top"><p class="tableblock"><code>attribute0</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">surface attribute used as input</p></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">outTransform</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_MAT4</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transform applied to input</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">outOffset</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">(0, 0, 0, 0)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">offset added to output transform result</p></td>
-</tr>
 </tbody>
 </table>
 <div class="admonitionblock note">
@@ -6931,10 +6927,6 @@ calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with su
 <div class="paragraph">
 <p>The transform sampler does not actually sample any array or image but merely applies a
 transformation to an attribute for purposes such as swizzling or scaling the components.</p>
-</div>
-<div class="paragraph">
-<p>Like all <code>FLOAT32_MAT4</code> matrices, <code>outTransform</code> is in column-major memory
-layout and is applied to column vectors (multiplied from the left <code>transform * x + offset</code>).</p>
 </div>
 </td>
 </tr>
@@ -6971,7 +6963,7 @@ independent of the viewing direction. The matte material supports
 (partial) cut-out transparency depending on <code>alphaMode</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 50. <a href="#api_concepts_parameters">Parameters</a> of the matte material.</caption>
+<caption class="title">Table 51. <a href="#api_concepts_parameters">Parameters</a> of the matte material.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 28.5714%;">
@@ -7055,7 +7047,7 @@ non-normative implementation hints, as well as to glTF extensions
 <a href="https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_iridescence/README.md">KHR_materials_iridescence</a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 51. <a href="#api_concepts_parameters">Parameters</a> of the physicallyBased material.</caption>
+<caption class="title">Table 52. <a href="#api_concepts_parameters">Parameters</a> of the physicallyBased material.</caption>
 <colgroup>
 <col style="width: 23.0769%;">
 <col style="width: 30.7692%;">
@@ -7312,7 +7304,7 @@ create a new volume object of given subtype <code>subtype</code> use</p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 52. <a href="#api_concepts_parameters">Parameters</a> understood by volumes.</caption>
+<caption class="title">Table 53. <a href="#api_concepts_parameters">Parameters</a> understood by volumes.</caption>
 <colgroup>
 <col style="width: 10%;">
 <col style="width: 10%;">
@@ -7352,7 +7344,7 @@ create a new volume object of given subtype <code>subtype</code> use</p>
 <code>transferFunction1D</code> to <a href="#object_types_volume"><code>anariNewVolume</code></a>. It supports the following parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 53. <a href="#api_concepts_parameters">Parameters</a> understood by the transferFunction1D volume.</caption>
+<caption class="title">Table 54. <a href="#api_concepts_parameters">Parameters</a> understood by the transferFunction1D volume.</caption>
 <colgroup>
 <col style="width: 15.7894%;">
 <col style="width: 26.3157%;">
@@ -7494,7 +7486,7 @@ The parameters understood by structured regular spatial fields are summarized in
 the table below.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 54. Configuration parameters for structured regular spatial fields.</caption>
+<caption class="title">Table 55. Configuration parameters for structured regular spatial fields.</caption>
 <colgroup>
 <col style="width: 11.1111%;">
 <col style="width: 22.2222%;">
@@ -7581,7 +7573,7 @@ parameters understood by unstructured spatial fields are summarized in the table
 below.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 55. Configuration parameters for unstructured spatial fields.</caption>
+<caption class="title">Table 56. Configuration parameters for unstructured spatial fields.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 33.3333%;">
@@ -8124,7 +8116,7 @@ provided by Khronos staff.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.1.0<br>
-Last updated 2025-04-08 16:28:32 UTC
+Last updated 2025-04-14 15:19:22 UTC
 </div>
 </div>
 
