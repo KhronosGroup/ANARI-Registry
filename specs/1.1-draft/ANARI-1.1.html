@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.1.0,</span>
-<span id="revdate">2025-04-23 19:41:36Z</span>
+<span id="revdate">2025-05-07 17:35:05Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -2620,17 +2620,29 @@ The following infos of parameters can be queried:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">default value, must be in <code>minimum</code>..<code>maximum</code> if present</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">elementType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATA_TYPE_LIST</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">for <code>ARRAY</code>s</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of supported element types of the <code>ANARIArray</code> parameter, with last element <code>UNKNOWN</code></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>BOOL</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">whether the parameter must be set for an object to be valid,
-                                        must be <code>FALSE</code> if a <code>default</code> is present</p></td>
+                                           must be <code>FALSE</code> if a <code>default</code> is present</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">softMinimum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">typical minimum, must be in <code>minimum</code>..<code>maximum</code> if present (useful, e.g., for a slider widget)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">softMaximum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">typical maximum, must be in <code>minimum</code>..<code>maximum</code> if present (useful, e.g., for a slider widget)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">elementType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATA_TYPE_LIST</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">for <code>ARRAY</code>s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of supported element types of the <code>ANARIArray</code> parameter, with last element <code>UNKNOWN</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
@@ -8140,7 +8152,7 @@ provided by Khronos staff.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.1.0<br>
-Last updated 2025-04-23 19:41:01 UTC
+Last updated 2025-05-07 17:34:29 UTC
 </div>
 </div>
 
