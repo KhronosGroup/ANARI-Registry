@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.1.0,</span>
-<span id="revdate">2025-05-07 17:35:05Z</span>
+<span id="revdate">2025-05-14 11:27:55Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -893,7 +893,11 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#api_choices_library">2.2. Common Front-end Library</a></li>
 <li><a href="#api_choices_objects">2.3. Opaque Objects, Parameterization, and Properties</a></li>
 <li><a href="#api_choices_extensions">2.4. Extensions</a></li>
-<li><a href="#api_choices_distributed_rendering">2.5. Support for Distributed Applications (Informative)</a></li>
+<li><a href="#api_choices_distributed_rendering">2.5. Data-Parallel Distributed Rendering</a>
+<ul class="sectlevel3">
+<li><a href="#api_choices_data_parallel_mpi">2.5.1. MPI</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#api_concepts">3. Common API Concepts</a>
@@ -1372,13 +1376,12 @@ appendix.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="api_choices_distributed_rendering"><a class="anchor" href="#api_choices_distributed_rendering"></a>2.5. Support for Distributed Applications (Informative)</h3>
+<h3 id="api_choices_distributed_rendering"><a class="anchor" href="#api_choices_distributed_rendering"></a>2.5. Data-Parallel Distributed Rendering</h3>
 <div class="paragraph">
 <p>ANARI is designed to be compatible with applications which are distributed
-across multiple processes which may reside on multiple machines. ANARI
-implementors provide distributed rendering capabilities using existing API
-semantics relevant to running in distributed environments, such as multiple
-processes invoking API calls in lock-step.</p>
+across multiple processes which may reside on multiple machines. The following
+extensions specify the semantics and required networking to enable rendering
+in distriuted applications.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1389,12 +1392,123 @@ processes invoking API calls in lock-step.</p>
 <td class="content">
 <div class="title">Note</div>
 <div class="paragraph">
-<p>Interoperability with underlying
-networking APIs, such as MPI, are expected to be documented by the vendor.</p>
+<p>Distributed rendering define semantics and rules for ANARI usage within
+distributed <em>applications</em>. Some devices <em>may</em> use distirbuted rendering
+resources behind the API of single-process applications, which is already
+covered by normal ANARI API usage and does not require additional specification.</p>
 </div>
 </td>
 </tr>
 </table>
+</div>
+<div class="sect3">
+<h4 id="api_choices_data_parallel_mpi"><a class="anchor" href="#api_choices_data_parallel_mpi"></a>2.5.1. MPI</h4>
+<div class="paragraph">
+<p>Extension <code>KHR_DATA_PARALLEL_MPI</code></p>
+</div>
+<div class="paragraph">
+<p>Distributed applications using MPI can leverage ANARI implementations which also
+use MPI to enable data-parallel rendering. The overall API usage requirements
+are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Applications collectively create the device, frame, and world in lockstep.</p>
+</li>
+<li>
+<p>Each rank creates/modifies the local contents of the
+<a href="#object_types_world">World</a> it has using the ANARI API normally.</p>
+</li>
+<li>
+<p>All ranks collectively render by calling <code>anariRenderFrame</code> in lockstep.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given an MPI distributed application using ANARI, all ANARI concepts apply along
+with the following additional rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Applications must create <a href="#object_types_frame">Frame</a> and
+<a href="#object_types_world">World</a> objects in the same order. Construction order
+determines how they are collectively identified among all ranks.</p>
+</li>
+<li>
+<p>Participating <a href="#object_types_frame">Frame</a>,
+<a href="#object_types_renderer">Renderer</a>, and <a href="#object_types_camera">Camera</a>
+parameters must match on all ranks. Using different parameters for these
+objects on different ranks will result in undefined behavior.</p>
+</li>
+<li>
+<p>Mapping frame channels is only well-defined on a designated main rank.
+While it is not an error to map any channel on any other rank, its contents
+(size, pixel type, and returned data pointer) are undefined.</p>
+</li>
+<li>
+<p>Properties queried with <code>anariGetProperty</code> are globally synchronizing
+(collective) operations for <a href="#object_types_frame">Frame</a> and
+<a href="#object_types_world">World</a> objects when queried with the <code>ANARI_WAIT</code> flag.</p>
+</li>
+<li>
+<p>Calling <code>anariRelease</code> on the final application held reference of the
+<a href="#anari_concepts_devices">Device</a> is a globally synchronized (collective)
+operation.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This extension introduces the following additional parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. <a href="#api_concepts_parameters">Parameters</a> added to MPI distributed <a href="#object_types_frame">Frame</a> objects.</caption>
+<colgroup>
+<col style="width: 8.3333%;">
+<col style="width: 4.1666%;">
+<col style="width: 4.1666%;">
+<col style="width: 83.3335%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-center valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mainRank</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>INT32</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Designated application rank which will map frame channels within <code>MPI_COMM_WORLD</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>A more complete description of the problem, ANARI-based solution, and example
+implementation results can be found in the freely available paper:</p>
+</div>
+<div id="mpi-parallel-rendering" class="paragraph">
+<p>Wald et al.
+July, 2024
+"Standardized Data-Parallel Rendering using ANARI"
+<a href="https://arxiv.org/abs/2407.00179" class="bare">https://arxiv.org/abs/2407.00179</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -1656,7 +1770,7 @@ is committed.</p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Data types.</caption>
+<caption class="title">Table 2. Data types.</caption>
 <colgroup>
 <col style="width: 27.6595%;">
 <col style="width: 30.851%;">
@@ -2515,7 +2629,7 @@ subtypes). The function returns the result for <code>infoName</code> of type <co
 The following infos of objects can be queried:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Info of objects for introspection.</caption>
+<caption class="title">Table 3. Info of objects for introspection.</caption>
 <colgroup>
 <col style="width: 13.0434%;">
 <col style="width: 17.3913%;">
@@ -2579,7 +2693,7 @@ info cannot be retrieved.
 The following infos of parameters can be queried:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Info of parameters for introspection.</caption>
+<caption class="title">Table 4. Info of parameters for introspection.</caption>
 <colgroup>
 <col style="width: 14.4927%;">
 <col style="width: 17.3913%;">
@@ -2929,7 +3043,7 @@ efficiency.</p>
 <code>KHR_ARRAY1D_REGION</code>, which adds the following parameter to <code>ANARIArray1D</code>:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. <a href="#api_concepts_parameters">Parameters</a> understood by the 1D array.</caption>
+<caption class="title">Table 5. <a href="#api_concepts_parameters">Parameters</a> understood by the 1D array.</caption>
 <colgroup>
 <col style="width: 9.0909%;">
 <col style="width: 18.1818%;">
@@ -3128,7 +3242,7 @@ kernel queues.</p>
 <a href="#api_concepts_object_properties">using <code>anariGetProperty</code></a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. <a href="#api_concepts_object_properties">Properties</a> queryable on a device.</caption>
+<caption class="title">Table 6. <a href="#api_concepts_object_properties">Properties</a> queryable on a device.</caption>
 <colgroup>
 <col style="width: 23.8095%;">
 <col style="width: 14.2857%;">
@@ -3273,7 +3387,7 @@ The status callback function can be set using</p>
 </ul>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. <a href="#api_concepts_parameters">Parameters</a> understood by all devices.</caption>
+<caption class="title">Table 7. <a href="#api_concepts_parameters">Parameters</a> understood by all devices.</caption>
 <colgroup>
 <col style="width: 30%;">
 <col style="width: 20%;">
@@ -3319,7 +3433,7 @@ Unspecified (components of) attributes default to zero for the first three
 components and to one for the fourth component.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Attributes</caption>
+<caption class="title">Table 8. Attributes</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -3545,7 +3659,7 @@ mapped as. The same channel names are used to map the channel contents with <cod
 channel has its own associated extension name.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. <a href="#api_concepts_parameters">Parameters</a> understood by the frame.</caption>
+<caption class="title">Table 9. <a href="#api_concepts_parameters">Parameters</a> understood by the frame.</caption>
 <colgroup>
 <col style="width: 36.8421%;">
 <col style="width: 28.0701%;">
@@ -3648,7 +3762,7 @@ this will incur a deadlock.</p>
 </table>
 </div>
 <table id="frame_channels" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. Frame channel enabling parameters and their associated extension names.</caption>
+<caption class="title">Table 10. Frame channel enabling parameters and their associated extension names.</caption>
 <colgroup>
 <col style="width: 22.5806%;">
 <col style="width: 12.9032%;">
@@ -3719,7 +3833,7 @@ this will incur a deadlock.</p>
 <a href="#api_concepts_object_properties">using <code>anariGetProperty</code></a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. <a href="#api_concepts_object_properties">Properties</a> queryable on a frame.</caption>
+<caption class="title">Table 11. <a href="#api_concepts_object_properties">Properties</a> queryable on a frame.</caption>
 <colgroup>
 <col style="width: 22.2222%;">
 <col style="width: 11.1111%;">
@@ -3771,7 +3885,7 @@ scene. To create a new camera of given type <code>subtype</code> use</p>
 <p>All cameras accept the following parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. <a href="#api_concepts_parameters">Parameters</a> understood by cameras.</caption>
+<caption class="title">Table 12. <a href="#api_concepts_parameters">Parameters</a> understood by cameras.</caption>
 <colgroup>
 <col style="width: 25.3521%;">
 <col style="width: 14.0845%;">
@@ -3878,7 +3992,7 @@ rendering, which is enabled by setting <code>stereoMode</code> and
 <code>interpupillaryDistance</code>.</p>
 </div>
 <table id="extension_camera_motion_transformation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. Additional parameters understood by all cameras with extension <code>KHR_CAMERA_MOTION_TRANSFORMATION</code>.</caption>
+<caption class="title">Table 13. Additional parameters understood by all cameras with extension <code>KHR_CAMERA_MOTION_TRANSFORMATION</code>.</caption>
 <colgroup>
 <col style="width: 23.0769%;">
 <col style="width: 23.0769%;">
@@ -3951,7 +4065,7 @@ perspective camera supports the special parameters listed in the table
 below.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. Additional <a href="#api_concepts_parameters">parameters</a> understood by the perspective <a href="#object_types_camera">camera</a>.</caption>
+<caption class="title">Table 14. Additional <a href="#api_concepts_parameters">parameters</a> understood by the perspective <a href="#object_types_camera">camera</a>.</caption>
 <colgroup>
 <col style="width: 11.1111%;">
 <col style="width: 11.1111%;">
@@ -4031,7 +4145,7 @@ scene by using the <a href="#object_types_camera">general parameters</a> underst
 cameras.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. Additional <a href="#api_concepts_parameters">parameters</a> understood by the omnidirectional <a href="#object_types_camera">camera</a>.</caption>
+<caption class="title">Table 15. Additional <a href="#api_concepts_parameters">parameters</a> understood by the omnidirectional <a href="#object_types_camera">camera</a>.</caption>
 <colgroup>
 <col style="width: 11.1111%;">
 <col style="width: 11.1111%;">
@@ -4073,7 +4187,7 @@ understood by all cameras the orthographic camera supports the following
 special parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. Additional <a href="#api_concepts_parameters">parameters</a> understood by the orthographic <a href="#object_types_camera">camera</a>.</caption>
+<caption class="title">Table 16. Additional <a href="#api_concepts_parameters">parameters</a> understood by the orthographic <a href="#object_types_camera">camera</a>.</caption>
 <colgroup>
 <col style="width: 11.1111%;">
 <col style="width: 11.1111%;">
@@ -4169,7 +4283,7 @@ refer to the documentation of ANARI implementations.</p>
 <a href="#api_concepts_object_properties">using <code>anariGetProperty</code></a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. <a href="#api_concepts_object_properties">Properties</a> queryable on a renderer.</caption>
+<caption class="title">Table 17. <a href="#api_concepts_object_properties">Properties</a> queryable on a renderer.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -4198,7 +4312,7 @@ refer to the documentation of ANARI implementations.</p>
 some typical parameters are specified by the following extensions.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. <a href="#api_concepts_parameters">Parameters</a> understood by some renderers.</caption>
+<caption class="title">Table 18. <a href="#api_concepts_parameters">Parameters</a> understood by some renderers.</caption>
 <colgroup>
 <col style="width: 18.75%;">
 <col style="width: 18.75%;">
@@ -4273,7 +4387,7 @@ is optional; there is no need to create empty arrays if there are no instances
 (though there might be nothing to render).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. <a href="#api_concepts_parameters">Parameters</a> understood by the world.</caption>
+<caption class="title">Table 19. <a href="#api_concepts_parameters">Parameters</a> understood by the world.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 28.5714%;">
@@ -4310,7 +4424,7 @@ is optional; there is no need to create empty arrays if there are no instances
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. <a href="#api_concepts_object_properties">Properties</a> queryable on a world.</caption>
+<caption class="title">Table 20. <a href="#api_concepts_object_properties">Properties</a> queryable on a world.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -4350,7 +4464,7 @@ transform which serves as a fall back but may be overridden by subtype specific
 transform definitions.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. <a href="#api_concepts_parameters">Parameters</a> understood by instances.</caption>
+<caption class="title">Table 21. <a href="#api_concepts_parameters">Parameters</a> understood by instances.</caption>
 <colgroup>
 <col style="width: 12.5%;">
 <col style="width: 16.6666%;">
@@ -4444,7 +4558,7 @@ and 16th float) as being (0, 0, 0, 1).</p>
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 21. <a href="#api_concepts_object_properties">Properties</a> queryable on an instance.</caption>
+<caption class="title">Table 22. <a href="#api_concepts_object_properties">Properties</a> queryable on an instance.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -4499,7 +4613,7 @@ to transform a single group many times by avoiding the need to create an entire
 object per-transform.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. Additional <a href="#api_concepts_parameters">parameters</a> introduced by <code>KHR_INSTANCE_TRANSFORM_ARRAY</code> <a href="#object_types_instance">instance</a>.</caption>
+<caption class="title">Table 23. Additional <a href="#api_concepts_parameters">parameters</a> introduced by <code>KHR_INSTANCE_TRANSFORM_ARRAY</code> <a href="#object_types_instance">instance</a>.</caption>
 <colgroup>
 <col style="width: 22.2222%;">
 <col style="width: 16.6666%;">
@@ -4564,7 +4678,7 @@ transformation motion blur in combination with <code>time</code> and extension
 <a href="#object_types_camera"><code>KHR_CAMERA_SHUTTER</code></a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. Additional <a href="#api_concepts_parameters">parameters</a> understood by the motion transform <a href="#object_types_instance">instance</a>.</caption>
+<caption class="title">Table 24. Additional <a href="#api_concepts_parameters">parameters</a> understood by the motion transform <a href="#object_types_instance">instance</a>.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 15%;">
@@ -4612,7 +4726,7 @@ order) to achieve transformation motion blur in combination with <code>time</cod
 extension <a href="#object_types_camera"><code>KHR_CAMERA_SHUTTER</code></a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. Additional <a href="#api_concepts_parameters">parameters</a> understood by the motion scale rotation translation <a href="#object_types_instance">instance</a>.</caption>
+<caption class="title">Table 25. Additional <a href="#api_concepts_parameters">parameters</a> understood by the motion scale rotation translation <a href="#object_types_instance">instance</a>.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -4676,7 +4790,7 @@ system. Groups are created with</p>
 there are no surfaces, no volumes, or no lights instanced.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 25. <a href="#api_concepts_parameters">Parameters</a> understood by groups.</caption>
+<caption class="title">Table 26. <a href="#api_concepts_parameters">Parameters</a> understood by groups.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 28.5714%;">
@@ -4708,7 +4822,7 @@ there are no surfaces, no volumes, or no lights instanced.</p>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 26. <a href="#api_concepts_object_properties">Properties</a> queryable on a group.</caption>
+<caption class="title">Table 27. <a href="#api_concepts_object_properties">Properties</a> queryable on a group.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -4746,7 +4860,7 @@ thus illuminate objects. To create a new light object of given subtype
 <p>All light sources accept the following parameters:</p>
 </div>
 <table id="extension_light_primary_visibility" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 27. <a href="#api_concepts_parameters">Parameters</a> understood by all lights.</caption>
+<caption class="title">Table 28. <a href="#api_concepts_parameters">Parameters</a> understood by all lights.</caption>
 <colgroup>
 <col style="width: 11.4285%;">
 <col style="width: 14.2857%;">
@@ -4798,7 +4912,7 @@ parameters</a> understood by all lights, the directional light supports
 the following special parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 28. Additional <a href="#api_concepts_parameters">parameters</a> understood by the directional <a href="#object_types_light">light</a>.</caption>
+<caption class="title">Table 29. Additional <a href="#api_concepts_parameters">parameters</a> understood by the directional <a href="#object_types_light">light</a>.</caption>
 <colgroup>
 <col style="width: 19.0476%;">
 <col style="width: 14.2857%;">
@@ -4889,7 +5003,7 @@ the <a href="#object_types_light">general parameters</a> the HDRI light supports
 the following special parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 29. Additional <a href="#api_concepts_parameters">parameters</a> understood by the HDRI <a href="#object_types_light">light</a>.</caption>
+<caption class="title">Table 30. Additional <a href="#api_concepts_parameters">parameters</a> understood by the HDRI <a href="#object_types_light">light</a>.</caption>
 <colgroup>
 <col style="width: 13.1578%;">
 <col style="width: 15.7894%;">
@@ -4954,7 +5068,7 @@ outside). It is created by passing the subtype string <code>point</code> to
 point light supports the following special parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 30. Additional <a href="#api_concepts_parameters">parameters</a> understood by the point <a href="#object_types_light">light</a>.</caption>
+<caption class="title">Table 31. Additional <a href="#api_concepts_parameters">parameters</a> understood by the point <a href="#object_types_light">light</a>.</caption>
 <colgroup>
 <col style="width: 10%;">
 <col style="width: 20%;">
@@ -5054,7 +5168,7 @@ the <a href="#object_types_light">general parameters</a> understood by all light
 quad light supports the following special parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 31. Additional <a href="#api_concepts_parameters">parameters</a> understood by the quad <a href="#object_types_light">light</a>.</caption>
+<caption class="title">Table 32. Additional <a href="#api_concepts_parameters">parameters</a> understood by the quad <a href="#object_types_light">light</a>.</caption>
 <colgroup>
 <col style="width: 23.8095%;">
 <col style="width: 14.2857%;">
@@ -5175,7 +5289,7 @@ parameters listed in the table. The ring light is
 an area light and thus has a cosine falloff.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 32. Additional <a href="#api_concepts_parameters">parameters</a> understood by the ring <a href="#object_types_light">light</a>.</caption>
+<caption class="title">Table 33. Additional <a href="#api_concepts_parameters">parameters</a> understood by the ring <a href="#object_types_light">light</a>.</caption>
 <colgroup>
 <col style="width: 23.8095%;">
 <col style="width: 14.2857%;">
@@ -5305,7 +5419,7 @@ parameters</a> understood by all lights, the spotlight supports the
 special parameters listed in the table.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 33. Additional <a href="#api_concepts_parameters">parameters</a> understood by the spot<a href="#object_types_light">light</a>.</caption>
+<caption class="title">Table 34. Additional <a href="#api_concepts_parameters">parameters</a> understood by the spot<a href="#object_types_light">light</a>.</caption>
 <colgroup>
 <col style="width: 15.7894%;">
 <col style="width: 15.7894%;">
@@ -5416,7 +5530,7 @@ created with</p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 34. <a href="#api_concepts_parameters">Parameters</a> understood by Surface.</caption>
+<caption class="title">Table 35. <a href="#api_concepts_parameters">Parameters</a> understood by Surface.</caption>
 <colgroup>
 <col style="width: 12.5%;">
 <col style="width: 12.5%;">
@@ -5478,7 +5592,7 @@ surface. To create a new geometry object of given subtype <code>subtype</code> u
 <p>All geometries support the following attribute setting parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 35. <a href="#api_concepts_parameters">Parameters</a> understood by all geometries.</caption>
+<caption class="title">Table 36. <a href="#api_concepts_parameters">Parameters</a> understood by all geometries.</caption>
 <colgroup>
 <col style="width: 22.2222%;">
 <col style="width: 48.1481%;">
@@ -5591,7 +5705,7 @@ render them procedurally such that the cones are perfectly round.</p>
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 36. Additional <a href="#api_concepts_parameters">parameters</a> understood by the cone <a href="#object_types_geometry">geometry</a>.</caption>
+<caption class="title">Table 37. Additional <a href="#api_concepts_parameters">parameters</a> understood by the cone <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -5715,7 +5829,7 @@ them procedurally such that the curve segments are perfectly round.</p>
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 37. Additional <a href="#api_concepts_parameters">parameters</a> understood by the curve <a href="#object_types_geometry">geometry</a>.</caption>
+<caption class="title">Table 38. Additional <a href="#api_concepts_parameters">parameters</a> understood by the curve <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
 <col style="width: 22.2222%;">
 <col style="width: 33.3333%;">
@@ -5826,7 +5940,7 @@ render them procedurally such that the cylinders are perfectly round.</p>
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 38. Additional <a href="#api_concepts_parameters">parameters</a> understood by the cylinder <a href="#object_types_geometry">geometry</a>.</caption>
+<caption class="title">Table 39. Additional <a href="#api_concepts_parameters">parameters</a> understood by the cylinder <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -5939,7 +6053,7 @@ subtype string <code>isosurface</code>. A isosurface geometry recognizes the fol
 parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 39. Additional <a href="#api_concepts_parameters">parameters</a> understood by the isosurface <a href="#object_types_geometry">geometry</a>.</caption>
+<caption class="title">Table 40. Additional <a href="#api_concepts_parameters">parameters</a> understood by the isosurface <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 41.6666%;">
@@ -5981,7 +6095,7 @@ created, which are the primitives of the isosurface geometry.</p>
 recognizes the following parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 40. Additional <a href="#api_concepts_parameters">parameters</a> understood by the quad <a href="#object_types_geometry">geometry</a>.</caption>
+<caption class="title">Table 41. Additional <a href="#api_concepts_parameters">parameters</a> understood by the quad <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
 <col style="width: 21.4285%;">
 <col style="width: 35.7142%;">
@@ -6128,7 +6242,7 @@ from the attribute array using the formula <code>4 * primID + {0, 1, 2, 3}</code
 of the same attribute are present.</p>
 </div>
 <table id="extension_geometry_quad_motion_deformation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 41. Additional parameters understood by a quad geometry with extension <code>KHR_GEOMETRY_QUAD_MOTION_DEFORMATION</code>.</caption>
+<caption class="title">Table 42. Additional parameters understood by a quad geometry with extension <code>KHR_GEOMETRY_QUAD_MOTION_DEFORMATION</code>.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 37.5%;">
@@ -6203,7 +6317,7 @@ them procedurally such that the spheres are perfectly round.</p>
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 42. Additional <a href="#api_concepts_parameters">parameters</a> understood by the sphere <a href="#object_types_geometry">geometry</a>.</caption>
+<caption class="title">Table 43. Additional <a href="#api_concepts_parameters">parameters</a> understood by the sphere <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 30%;">
@@ -6301,7 +6415,7 @@ implicitly derived) <code>primitive.index</code>, which must be at most <a href=
 recognizes the following parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 43. Additional <a href="#api_concepts_parameters">parameters</a> understood by the triangle <a href="#object_types_geometry">geometry</a>.</caption>
+<caption class="title">Table 44. Additional <a href="#api_concepts_parameters">parameters</a> understood by the triangle <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
 <col style="width: 21.4285%;">
 <col style="width: 35.7142%;">
@@ -6449,7 +6563,7 @@ from the attribute array using the formula <code>3 * primID + {0, 1, 2}</code>.<
 of the same attribute are present.</p>
 </div>
 <table id="extension_geometry_triangle_motion_deformation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 44. Additional parameters understood by a triangle geometry with extension <code>KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION</code>.</caption>
+<caption class="title">Table 45. Additional parameters understood by a triangle geometry with extension <code>KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION</code>.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 37.5%;">
@@ -6510,7 +6624,7 @@ materials. To create a new sampler use</p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 45. <a href="#api_concepts_parameters">Parameters</a> understood by samplers.</caption>
+<caption class="title">Table 46. <a href="#api_concepts_parameters">Parameters</a> understood by samplers.</caption>
 <colgroup>
 <col style="width: 12.5%;">
 <col style="width: 16.6666%;">
@@ -6573,7 +6687,7 @@ outOffset</code>).</p>
 parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 46. <a href="#api_concepts_parameters">Parameters</a> understood by the 1D image sampler.</caption>
+<caption class="title">Table 47. <a href="#api_concepts_parameters">Parameters</a> understood by the 1D image sampler.</caption>
 <colgroup>
 <col style="width: 16.3265%;">
 <col style="width: 16.3265%;">
@@ -6665,7 +6779,7 @@ inOffset</code>).</p>
 <p>A two dimensional image sampler is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string <code>image2D</code>. It accepts the following parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 47. <a href="#api_concepts_parameters">Parameters</a> understood by the 2D image sampler.</caption>
+<caption class="title">Table 48. <a href="#api_concepts_parameters">Parameters</a> understood by the 2D image sampler.</caption>
 <colgroup>
 <col style="width: 16.3265%;">
 <col style="width: 16.3265%;">
@@ -6763,7 +6877,7 @@ inOffset</code>).</p>
 <p>A three dimensional image sampler is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string <code>image3D</code>. It accepts the following parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 48. <a href="#api_concepts_parameters">Parameters</a> understood by the 3D image sampler.</caption>
+<caption class="title">Table 49. <a href="#api_concepts_parameters">Parameters</a> understood by the 3D image sampler.</caption>
 <colgroup>
 <col style="width: 16.3265%;">
 <col style="width: 16.3265%;">
@@ -6870,7 +6984,7 @@ It is created by calling <a href="#object_types_sampler"><code>anariNewSampler</
 The <code>inOffset</code> parameter value is added to <code>primitiveID</code> before sampling.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 49. <a href="#api_concepts_parameters">Parameters</a> understood by the primitive sampler.</caption>
+<caption class="title">Table 50. <a href="#api_concepts_parameters">Parameters</a> understood by the primitive sampler.</caption>
 <colgroup>
 <col style="width: 11.1111%;">
 <col style="width: 22.2222%;">
@@ -6928,7 +7042,7 @@ is created by calling <a href="#object_types_sampler"><code>anariNewSampler</cod
 string <code>transform</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 50. <a href="#api_concepts_parameters">Parameters</a> understood by the transform sampler.</caption>
+<caption class="title">Table 51. <a href="#api_concepts_parameters">Parameters</a> understood by the transform sampler.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -6999,7 +7113,7 @@ independent of the viewing direction. The matte material supports
 (partial) cut-out transparency depending on <code>alphaMode</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 51. <a href="#api_concepts_parameters">Parameters</a> of the matte material.</caption>
+<caption class="title">Table 52. <a href="#api_concepts_parameters">Parameters</a> of the matte material.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 28.5714%;">
@@ -7083,7 +7197,7 @@ non-normative implementation hints, as well as to glTF extensions
 <a href="https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_iridescence/README.md">KHR_materials_iridescence</a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 52. <a href="#api_concepts_parameters">Parameters</a> of the physicallyBased material.</caption>
+<caption class="title">Table 53. <a href="#api_concepts_parameters">Parameters</a> of the physicallyBased material.</caption>
 <colgroup>
 <col style="width: 23.0769%;">
 <col style="width: 30.7692%;">
@@ -7340,7 +7454,7 @@ create a new volume object of given subtype <code>subtype</code> use</p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 53. <a href="#api_concepts_parameters">Parameters</a> understood by volumes.</caption>
+<caption class="title">Table 54. <a href="#api_concepts_parameters">Parameters</a> understood by volumes.</caption>
 <colgroup>
 <col style="width: 10%;">
 <col style="width: 10%;">
@@ -7380,7 +7494,7 @@ create a new volume object of given subtype <code>subtype</code> use</p>
 <code>transferFunction1D</code> to <a href="#object_types_volume"><code>anariNewVolume</code></a>. It supports the following parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 54. <a href="#api_concepts_parameters">Parameters</a> understood by the transferFunction1D volume.</caption>
+<caption class="title">Table 55. <a href="#api_concepts_parameters">Parameters</a> understood by the transferFunction1D volume.</caption>
 <colgroup>
 <col style="width: 15.7894%;">
 <col style="width: 26.3157%;">
@@ -7522,7 +7636,7 @@ The parameters understood by structured regular spatial fields are summarized in
 the table below.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 55. Configuration parameters for structured regular spatial fields.</caption>
+<caption class="title">Table 56. Configuration parameters for structured regular spatial fields.</caption>
 <colgroup>
 <col style="width: 11.1111%;">
 <col style="width: 22.2222%;">
@@ -7609,7 +7723,7 @@ parameters understood by unstructured spatial fields are summarized in the table
 below.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 56. Configuration parameters for unstructured spatial fields.</caption>
+<caption class="title">Table 57. Configuration parameters for unstructured spatial fields.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 33.3333%;">
@@ -7901,6 +8015,9 @@ array of (current, not legacy) <code>vtkCellArray</code>.</p>
 <p><a href="#extension_camera_stereo"><code>KHR_CAMERA_STEREO</code></a>: 3D stereo rendering is supported</p>
 </li>
 <li>
+<p><a href="#api_choices_data_parallel_mpi"><code>KHR_DATA_PARALLEL_MPI</code></a>: Data-parallel rendering using MPI is supported</p>
+</li>
+<li>
 <p><a href="#api_concepts_thread_safety"><code>KHR_DEVICE_SYNCHRONIZATION</code></a>: Relax API function synchronization requirement</p>
 </li>
 <li>
@@ -8152,7 +8269,7 @@ provided by Khronos staff.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.1.0<br>
-Last updated 2025-05-07 17:34:29 UTC
+Last updated 2025-05-14 11:27:20 UTC
 </div>
 </div>
 
