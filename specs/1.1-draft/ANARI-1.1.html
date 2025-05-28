@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.1.0,</span>
-<span id="revdate">2025-05-14 11:27:55Z</span>
+<span id="revdate">2025-05-28 17:13:00Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -2764,8 +2764,30 @@ The following infos of parameters can be queried:</p>
 <td class="tableblock halign-center valign-top"><p class="tableblock">No</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">list of accepted strings or data types for parameters that only recognize specific values</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">initializer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>BOOL</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">whether the value is set as a normal parameter or only passable on creation of the object</p></td>
+</tr>
 </tbody>
 </table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>The <code>initializer</code> flag is only present for devices and represents immutable parameters
+passed during device creation.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="api_concepts_object_properties"><a class="anchor" href="#api_concepts_object_properties"></a>3.8. Object Properties</h3>
@@ -3236,6 +3258,33 @@ kernel queues.</p>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp">ANARIDevice anariNewDevice(ANARILibrary, <span class="directive">const</span> <span class="predefined-type">char</span> *subtype);</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Some devices may have device parameters that can only be set once: for example,
+choosing a particular GPU used for rendering on a machine with more than one.
+Devices should always be usable with <code>anariNewDevice</code> having sensible defaults,
+but applications seeking to set immutable parameters on a device during
+device creation should instead use</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> ANARIParameterValue
+{
+  <span class="directive">const</span> <span class="predefined-type">char</span> *name;
+  ANARIDataType type;
+  <span class="directive">const</span> <span class="directive">void</span> *value;
+};
+
+ANARIDevice anariNewInitializedDevice(
+  ANARILibrary,
+  <span class="directive">const</span> <span class="predefined-type">char</span> *subtype,
+  ANARIParameterValue *initializers
+);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The last element in <code>params</code> is indicated with <code>name</code> being <code>NULL</code>, <code>type</code>
+being <code>ANARI_UNKNOWN</code>, and <code>value</code> being <code>NULL</code>.</p>
 </div>
 <div class="paragraph">
 <p>Version information can be queried as properties on the <code>ANARIDevice</code>
@@ -8269,7 +8318,7 @@ provided by Khronos staff.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.1.0<br>
-Last updated 2025-05-14 11:27:20 UTC
+Last updated 2025-05-28 17:12:24 UTC
 </div>
 </div>
 
