@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.1.0,</span>
-<span id="revdate">2025-06-02 12:07:36Z</span>
+<span id="revdate">2025-06-02 12:20:18Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -1444,9 +1444,10 @@ parameters must match on all ranks. Using different parameters for these
 objects on different ranks will result in undefined behavior.</p>
 </li>
 <li>
-<p>Mapping frame channels is only well-defined on a designated main rank.
-While it is not an error to map any channel on any other rank, its contents
-(size, pixel type, and returned data pointer) are undefined.</p>
+<p>Mapping frame channels is only well-defined on rank 0 of the used MPI
+communicator (see parameter table below).  While it is not an error to map any
+channel on any other rank, its contents (size, pixel type, and returned data
+pointer) are undefined.</p>
 </li>
 <li>
 <p>Properties queried with <code>anariGetProperty</code> are globally synchronizing
@@ -1481,10 +1482,10 @@ operation.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">mainRank</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>INT32</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Designated application rank which will map frame channels within <code>MPI_COMM_WORLD</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mpiCommunicator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VOID_POINTER</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MPI_COMM_WORLD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The MPI communicator which the device should treat as the MPI world.</p></td>
 </tr>
 </tbody>
 </table>
@@ -8376,7 +8377,7 @@ provided by Khronos staff.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.1.0<br>
-Last updated 2025-06-02 12:07:00 UTC
+Last updated 2025-06-02 12:19:42 UTC
 </div>
 </div>
 
