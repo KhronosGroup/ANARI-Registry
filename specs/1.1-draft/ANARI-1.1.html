@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.1.0,</span>
-<span id="revdate">2025-06-02 12:20:18Z</span>
+<span id="revdate">2025-07-08 12:16:44Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -2818,8 +2818,9 @@ return instantly.</p>
 returns <code>1</code>. Otherwise, the value is not written to <code>memory</code>, and the return value is <code>0</code>.</p>
 </div>
 <div class="paragraph">
-<p>The length of a string property can be queried as an <code>ANARI_ULONG</code> by appending
-<code>.size</code> to the property name.</p>
+<p>The length of a string property can be queried as an <code>ANARI_UINT64</code> by appending
+<code>.size</code> to the property name. The returned length includes space for the zero termination
+character.</p>
 </div>
 <div class="paragraph">
 <p>At most <code>size</code> bytes will be written to <code>memory</code>.</p>
@@ -8377,7 +8378,7 @@ provided by Khronos staff.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.1.0<br>
-Last updated 2025-06-02 12:19:42 UTC
+Last updated 2025-07-08 12:16:06 UTC
 </div>
 </div>
 
