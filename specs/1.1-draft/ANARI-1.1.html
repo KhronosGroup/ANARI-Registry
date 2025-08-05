@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="The Khronos® ANARI Working Group">
-<title>ANARI™ 1.1.0 – Specification</title>
+<title>ANARI™ 1.1.0 – Provisional Specification</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 /* ========================================================================== HTML5 display definitions ========================================================================== */
@@ -864,11 +864,11 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </head>
 <body class="book toc2 toc-left">
 <div id="header" style="max-width: 100%;">
-<h1>ANARI<sup>™</sup> 1.1.0 – Specification </h1>
+<h1>ANARI<sup>™</sup> 1.1.0 – Provisional Specification </h1>
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.1.0,</span>
-<span id="revdate">2025-07-08 12:16:44Z</span>
+<span id="revdate">2025-08-05 21:02:35Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -999,7 +999,12 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#transferFunction1D_algorithm">Appendix C: Example Algorithm for Rendering a TransferFunction1D Volume (Informative)</a></li>
 <li><a href="#credits">Appendix D: Credits (Informative)</a>
 <ul class="sectlevel2">
-<li><a href="#_working_group_contributors_to_anari">Working Group Contributors to ANARI</a></li>
+<li><a href="#_working_group_contributors_to_anari">Working Group Contributors to ANARI</a>
+<ul class="sectlevel3">
+<li><a href="#_anari_1_1">ANARI 1.1</a></li>
+<li><a href="#_anari_1_0">ANARI 1.0</a></li>
+</ul>
+</li>
 <li><a href="#_other_credits">Other Credits</a></li>
 </ul>
 </li>
@@ -1255,18 +1260,18 @@ specification:</p>
 August, 2008.
 <em>IEEE Standard for Floating-Point Arithmetic</em>.
 IEEE Std 754-2008.
-<a href="https://dx.doi.org/10.1109/IEEESTD.2008.4610935" class="bare">https://dx.doi.org/10.1109/IEEESTD.2008.4610935</a> .</p>
+<a href="https://dx.doi.org/10.1109/IEEESTD.2008.4610935" class="bare">https://dx.doi.org/10.1109/IEEESTD.2008.4610935</a>.</p>
 </div>
 <div id="vulkan-samplers" class="paragraph">
 <p>The Khronos® Vulkan Working Group.
-January, 2020
+January, 2020.
 <em>Vulkan® 1.2 – A Specification</em>, Section 16.8. Image Sample Operations,
-<a href="https://registry.khronos.org/vulkan/" class="bare">https://registry.khronos.org/vulkan/</a> .</p>
+<a href="https://registry.khronos.org/vulkan/" class="bare">https://registry.khronos.org/vulkan/</a>.</p>
 </div>
 <div id="gltf-brdf" class="paragraph">
-<p>The Khronos® 3D Formats Working Group
+<p>The Khronos® 3D Formats Working Group.
 <em>glTF™ 2.0 Specification</em>, Appendix B: BRDF Implementation
-<a href="https://registry.khronos.org/glTF/" class="bare">https://registry.khronos.org/glTF/</a> .</p>
+<a href="https://registry.khronos.org/glTF/" class="bare">https://registry.khronos.org/glTF/</a>.</p>
 </div>
 </div>
 </div>
@@ -1418,7 +1423,7 @@ are as follows:</p>
 <p>Applications collectively create the device, frame, and world in lockstep.</p>
 </li>
 <li>
-<p>Each rank creates/modifies the local contents of the
+<p>Each rank creates and modifies the local contents of the
 <a href="#object_types_world">World</a> it has using the ANARI API normally.</p>
 </li>
 <li>
@@ -1467,10 +1472,10 @@ operation.</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. <a href="#api_concepts_parameters">Parameters</a> added to MPI distributed <a href="#object_types_frame">Frame</a> objects.</caption>
 <colgroup>
-<col style="width: 8.3333%;">
-<col style="width: 4.1666%;">
-<col style="width: 4.1666%;">
-<col style="width: 83.3335%;">
+<col style="width: 21.4285%;">
+<col style="width: 14.2857%;">
+<col style="width: 21.4285%;">
+<col style="width: 42.8573%;">
 </colgroup>
 <thead>
 <tr>
@@ -1484,7 +1489,7 @@ operation.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">mpiCommunicator</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VOID_POINTER</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">MPI_COMM_WORLD</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>MPI_COMM_WORLD</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The MPI communicator which the device should treat as the MPI world.</p></td>
 </tr>
 </tbody>
@@ -1502,10 +1507,10 @@ operation.</p>
 implementation results can be found in the freely available paper:</p>
 </div>
 <div id="mpi-parallel-rendering" class="paragraph">
-<p>Wald et al.
-July, 2024
-"Standardized Data-Parallel Rendering using ANARI"
-<a href="https://arxiv.org/abs/2407.00179" class="bare">https://arxiv.org/abs/2407.00179</a></p>
+<p>Wald et al..
+July, 2024.
+<em>Standardized Data-Parallel Rendering using ANARI</em>
+<a href="https://arxiv.org/abs/2407.00179" class="bare">https://arxiv.org/abs/2407.00179</a>.</p>
 </div>
 </td>
 </tr>
@@ -2697,10 +2702,10 @@ The following infos of parameters can be queried:</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 4. Info of parameters for introspection.</caption>
 <colgroup>
-<col style="width: 14.4927%;">
-<col style="width: 17.3913%;">
-<col style="width: 13.0434%;">
-<col style="width: 55.0726%;">
+<col style="width: 15.7142%;">
+<col style="width: 17.1428%;">
+<col style="width: 12.8571%;">
+<col style="width: 54.2859%;">
 </colgroup>
 <thead>
 <tr>
@@ -2739,8 +2744,7 @@ The following infos of parameters can be queried:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>BOOL</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">whether the parameter must be set for an object to be valid,
-                                           must be <code>FALSE</code> if a <code>default</code> is present</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">whether the parameter must be set for an object to be valid, must be <code>FALSE</code> if a <code>default</code> is present</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">softMinimum</p></td>
@@ -2784,7 +2788,7 @@ The following infos of parameters can be queried:</p>
 <div class="title">Note</div>
 <div class="paragraph">
 <p>The <code>initializer</code> flag is only present for devices and represents immutable parameters
-passed during device creation.</p>
+passed during device creation via <a href="#api_concepts_devices"><code>anariNewInitializedDevice</code></a>.</p>
 </div>
 </td>
 </tr>
@@ -4560,25 +4564,25 @@ transform definitions.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">attribute0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute 0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">attribute1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">attribute2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">attribute3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute 3</p></td>
 </tr>
 </tbody>
 </table>
@@ -4667,9 +4671,9 @@ object per-transform.</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 23. Additional <a href="#api_concepts_parameters">parameters</a> introduced by <code>KHR_INSTANCE_TRANSFORM_ARRAY</code> <a href="#object_types_instance">instance</a>.</caption>
 <colgroup>
-<col style="width: 22.2222%;">
-<col style="width: 16.6666%;">
-<col style="width: 61.1112%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 62.5%;">
 </colgroup>
 <thead>
 <tr>
@@ -4682,7 +4686,7 @@ object per-transform.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">transform</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32_MAT4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of matrices, instantiating <code>group</code> once per-element matrix</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of matrices, instantiating <code>group</code> once per matrix</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
@@ -5123,9 +5127,9 @@ point light supports the following special parameters:</p>
 <caption class="title">Table 31. Additional <a href="#api_concepts_parameters">parameters</a> understood by the point <a href="#object_types_light">light</a>.</caption>
 <colgroup>
 <col style="width: 10%;">
-<col style="width: 20%;">
+<col style="width: 15%;">
 <col style="width: 10%;">
-<col style="width: 60%;">
+<col style="width: 65%;">
 </colgroup>
 <thead>
 <tr>
@@ -5613,8 +5617,8 @@ created with</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">visible</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>BOOL</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">TRUE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">surface visibility flag (TRUE visible, FALSE not visible)</p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>TRUE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">whether the surface is visible</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
@@ -5646,9 +5650,9 @@ surface. To create a new geometry object of given subtype <code>subtype</code> u
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 36. <a href="#api_concepts_parameters">Parameters</a> understood by all geometries.</caption>
 <colgroup>
-<col style="width: 22.2222%;">
-<col style="width: 48.1481%;">
-<col style="width: 29.6297%;">
+<col style="width: 25%;">
+<col style="width: 41.6666%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
@@ -5666,22 +5670,22 @@ surface. To create a new geometry object of given subtype <code>subtype</code> u
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">attribute0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute 0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">attribute1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">attribute2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">attribute3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uniform attribute 3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">primitive.color</p></td>
@@ -5691,22 +5695,22 @@ surface. To create a new geometry object of given subtype <code>subtype</code> u
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">primitive.attribute0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">per-primitive attribute0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-primitive attribute 0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">primitive.attribute1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">per-primitive attribute1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-primitive attribute 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">primitive.attribute2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">per-primitive attribute2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-primitive attribute 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">primitive.attribute3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">per-primitive attribute3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-primitive attribute 3</p></td>
 </tr>
 </tbody>
 </table>
@@ -5759,10 +5763,10 @@ render them procedurally such that the cones are perfectly round.</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 37. Additional <a href="#api_concepts_parameters">parameters</a> understood by the cone <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
+<col style="width: 18.5185%;">
+<col style="width: 35.1851%;">
+<col style="width: 9.2592%;">
+<col style="width: 37.0372%;">
 </colgroup>
 <thead>
 <tr>
@@ -5777,7 +5781,7 @@ render them procedurally such that the cones are perfectly round.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.position</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32_VEC3</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">required center positions of the cones</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required vertex positions</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.radius</p></td>
@@ -5795,31 +5799,31 @@ render them procedurally such that the cones are perfectly round.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <a href="#color">Color</a></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex colors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex color</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">primitive.index</p></td>
@@ -5883,10 +5887,10 @@ them procedurally such that the curve segments are perfectly round.</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 38. Additional <a href="#api_concepts_parameters">parameters</a> understood by the curve <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
-<col style="width: 22.2222%;">
-<col style="width: 33.3333%;">
-<col style="width: 11.1111%;">
-<col style="width: 33.3334%;">
+<col style="width: 18.5185%;">
+<col style="width: 35.1851%;">
+<col style="width: 9.2592%;">
+<col style="width: 37.0372%;">
 </colgroup>
 <thead>
 <tr>
@@ -5907,37 +5911,37 @@ them procedurally such that the curve segments are perfectly round.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.radius</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex radius</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">radius at each vertex</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <a href="#color">Color</a></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex colors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex color</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">primitive.index</p></td>
@@ -5994,10 +5998,10 @@ render them procedurally such that the cylinders are perfectly round.</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 39. Additional <a href="#api_concepts_parameters">parameters</a> understood by the cylinder <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
+<col style="width: 18.5185%;">
+<col style="width: 35.1851%;">
+<col style="width: 9.2592%;">
+<col style="width: 37.0372%;">
 </colgroup>
 <thead>
 <tr>
@@ -6012,7 +6016,7 @@ render them procedurally such that the cylinders are perfectly round.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.position</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32_VEC3</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">required center positions of the cylinders</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required vertex positions</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.cap</p></td>
@@ -6024,31 +6028,31 @@ render them procedurally such that the cylinders are perfectly round.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <a href="#color">Color</a></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex colors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex color</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">primitive.index</p></td>
@@ -6107,9 +6111,9 @@ parameters:</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 40. Additional <a href="#api_concepts_parameters">parameters</a> understood by the isosurface <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 41.6666%;">
-<col style="width: 33.3334%;">
+<col style="width: 15.3846%;">
+<col style="width: 34.6153%;">
+<col style="width: 50.0001%;">
 </colgroup>
 <thead>
 <tr>
@@ -6149,10 +6153,10 @@ recognizes the following parameters:</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 41. Additional <a href="#api_concepts_parameters">parameters</a> understood by the quad <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
-<col style="width: 21.4285%;">
-<col style="width: 35.7142%;">
-<col style="width: 14.2857%;">
-<col style="width: 28.5716%;">
+<col style="width: 25%;">
+<col style="width: 34.7222%;">
+<col style="width: 12.5%;">
+<col style="width: 27.7778%;">
 </colgroup>
 <thead>
 <tr>
@@ -6185,31 +6189,31 @@ recognizes the following parameters:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <a href="#color">Color</a></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex colors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex color</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">faceVarying.normal</p></td>
@@ -6233,25 +6237,25 @@ recognizes the following parameters:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">faceVarying.attribute0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute 0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">faceVarying.attribute1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">faceVarying.attribute2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">faceVarying.attribute3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute 3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">primitive.index</p></td>
@@ -6371,10 +6375,10 @@ them procedurally such that the spheres are perfectly round.</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 43. Additional <a href="#api_concepts_parameters">parameters</a> understood by the sphere <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 30%;">
-<col style="width: 10%;">
-<col style="width: 40%;">
+<col style="width: 18.5185%;">
+<col style="width: 35.1851%;">
+<col style="width: 9.2592%;">
+<col style="width: 37.0372%;">
 </colgroup>
 <thead>
 <tr>
@@ -6401,31 +6405,31 @@ them procedurally such that the spheres are perfectly round.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <a href="#color">Color</a></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex colors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex color</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">primitive.index</p></td>
@@ -6469,10 +6473,10 @@ recognizes the following parameters:</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 44. Additional <a href="#api_concepts_parameters">parameters</a> understood by the triangle <a href="#object_types_geometry">geometry</a>.</caption>
 <colgroup>
-<col style="width: 21.4285%;">
-<col style="width: 35.7142%;">
-<col style="width: 14.2857%;">
-<col style="width: 28.5716%;">
+<col style="width: 24.6575%;">
+<col style="width: 34.2465%;">
+<col style="width: 10.9589%;">
+<col style="width: 30.1371%;">
 </colgroup>
 <thead>
 <tr>
@@ -6505,31 +6509,31 @@ recognizes the following parameters:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <a href="#color">Color</a></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex colors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex color</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">vertex.attribute3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">vertex attribute3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">per-vertex attribute 3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">faceVarying.normal</p></td>
@@ -6553,25 +6557,25 @@ recognizes the following parameters:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">faceVarying.attribute0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute 0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">faceVarying.attribute1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">faceVarying.attribute2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">faceVarying.attribute3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code> / <code>FLOAT32_VEC2</code> / <code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">face-varying attribute 3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">primitive.index</p></td>
@@ -6678,10 +6682,10 @@ materials. To create a new sampler use</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 46. <a href="#api_concepts_parameters">Parameters</a> understood by samplers.</caption>
 <colgroup>
-<col style="width: 12.5%;">
-<col style="width: 16.6666%;">
-<col style="width: 12.5%;">
-<col style="width: 58.3334%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 12%;">
+<col style="width: 56%;">
 </colgroup>
 <thead>
 <tr>
@@ -7096,10 +7100,10 @@ string <code>transform</code>.</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 51. <a href="#api_concepts_parameters">Parameters</a> understood by the transform sampler.</caption>
 <colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 12.5%;">
-<col style="width: 54.1668%;">
+<col style="width: 17.3913%;">
+<col style="width: 13.0434%;">
+<col style="width: 13.0434%;">
+<col style="width: 56.5219%;">
 </colgroup>
 <thead>
 <tr>
@@ -7525,8 +7529,8 @@ create a new volume object of given subtype <code>subtype</code> use</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">visible</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>BOOL</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">TRUE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">volume visibility flag (TRUE visible, FALSE not visible)</p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>TRUE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">whether the volume is visible</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
@@ -7548,10 +7552,10 @@ create a new volume object of given subtype <code>subtype</code> use</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 55. <a href="#api_concepts_parameters">Parameters</a> understood by the transferFunction1D volume.</caption>
 <colgroup>
-<col style="width: 15.7894%;">
-<col style="width: 26.3157%;">
-<col style="width: 21.0526%;">
-<col style="width: 36.8423%;">
+<col style="width: 15%;">
+<col style="width: 30%;">
+<col style="width: 20%;">
+<col style="width: 35%;">
 </colgroup>
 <thead>
 <tr>
@@ -7950,6 +7954,9 @@ array of (current, not legacy) <code>vtkCellArray</code>.</p>
 <p><a href="#anariCommitParameters"><code>anariCommitParameters</code></a></p>
 </li>
 <li>
+<p><a href="#ANARIDeleterCallback"><code>ANARIDeleterCallback</code></a></p>
+</li>
+<li>
 <p><a href="#anariDiscardFrame"><code>anariDiscardFrame</code></a></p>
 </li>
 <li>
@@ -7993,9 +8000,6 @@ array of (current, not legacy) <code>vtkCellArray</code>.</p>
 </li>
 <li>
 <p><a href="#anariMapParameterArray3D"><code>anariMapParameterArray3D</code></a></p>
-</li>
-<li>
-<p><a href="#ANARIMemoryDeleter"><code>ANARIMemoryDeleter</code></a></p>
 </li>
 <li>
 <p><a href="#anariNewArray1D"><code>anariNewArray1D</code></a></p>
@@ -8301,7 +8305,7 @@ volume object.</p>
 <h2 id="credits"><a class="anchor" href="#credits"></a>Appendix D: Credits (Informative)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>ANARI 1.0 is the result of contributions from many people and companies
+<p>ANARI 1.1 is the result of contributions from many people and companies
 participating in the Khronos ANARI Working Group, as well as input from the
 ANARI Advisory Panel.</p>
 </div>
@@ -8314,10 +8318,61 @@ their name.</p>
 </div>
 <div class="sect2">
 <h3 id="_working_group_contributors_to_anari"><a class="anchor" href="#_working_group_contributors_to_anari"></a>Working Group Contributors to ANARI</h3>
+<div class="sect3">
+<h4 id="_anari_1_1"><a class="anchor" href="#_anari_1_1"></a>ANARI 1.1</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>Bill Sherman, NIST</p>
+<p>Bill Sherman, National Institute of Standards and Technology</p>
+</li>
+<li>
+<p>Ingo Wald, NVIDIA</p>
+</li>
+<li>
+<p>Jakob Progsch, NVIDIA</p>
+</li>
+<li>
+<p>Jefferson Amstutz, NVIDIA</p>
+</li>
+<li>
+<p>Johannes Günther, Intel</p>
+</li>
+<li>
+<p>John Stone, NVIDIA</p>
+</li>
+<li>
+<p>Kees Van Kooten, NVIDIA</p>
+</li>
+<li>
+<p>Kevin Griffin, NVIDIA</p>
+</li>
+<li>
+<p>Leonard Daly, Daly Realism</p>
+</li>
+<li>
+<p>Mirosław Pawłowski, Intel</p>
+</li>
+<li>
+<p>Neil Trevett, NVIDIA</p>
+</li>
+<li>
+<p>Simon Su, National Institute of Standards and Technology</p>
+</li>
+<li>
+<p>Thomas Arcila, NVIDIA</p>
+</li>
+<li>
+<p>Victor Mateevitsi, Argonne National Laboratory</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_anari_1_0"><a class="anchor" href="#_anari_1_0"></a>ANARI 1.0</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Bill Sherman, National Institute of Standards and Technology</p>
 </li>
 <li>
 <p>Brian Savery, AMD</p>
@@ -8358,6 +8413,7 @@ their name.</p>
 </ul>
 </div>
 </div>
+</div>
 <div class="sect2">
 <h3 id="_other_credits"><a class="anchor" href="#_other_credits"></a>Other Credits</h3>
 <div class="paragraph">
@@ -8365,8 +8421,9 @@ their name.</p>
 information and advice that helped guide design decisions.</p>
 </div>
 <div class="paragraph">
-<p>Administrative support to the Working Group for ANARI 1.0 was
-provided by Khronos staff.</p>
+<p>Administrative support to the Working Group for ANARI 1.1 was provided by
+Khronos staff including Emily Stearns; and by Alex Crabb of Caster
+Communications.</p>
 </div>
 <div class="paragraph">
 <p>Technical support was provided by James Riordon, webmaster of Khronos.org.</p>
@@ -8378,7 +8435,7 @@ provided by Khronos staff.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.1.0<br>
-Last updated 2025-07-08 12:16:06 UTC
+Last updated 2025-08-05 21:01:59 UTC
 </div>
 </div>
 
