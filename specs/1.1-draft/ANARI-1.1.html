@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.1.0,</span>
-<span id="revdate">2025-08-05 21:02:35Z</span>
+<span id="revdate">2025-08-06 17:34:34Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -891,7 +891,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <ul class="sectlevel2">
 <li><a href="#api_choices_c99">2.1. C99</a></li>
 <li><a href="#api_choices_library">2.2. Common Front-end Library</a></li>
-<li><a href="#api_choices_objects">2.3. Opaque Objects, Parameterization, and Properties</a></li>
+<li><a href="#api_choices_objects">2.3. Opaque Objects, Parametrization, and Properties</a></li>
 <li><a href="#api_choices_extensions">2.4. Extensions</a></li>
 <li><a href="#api_choices_distributed_rendering">2.5. Data-Parallel Distributed Rendering</a>
 <ul class="sectlevel3">
@@ -1101,7 +1101,7 @@ applications which use ANARI.</p>
 </div>
 <div class="paragraph">
 <p>Domains which leverage 3D graphics have diverse rendering needs involving
-tradeoffs among quality, speed, and scalability to available hardware resources.
+trade-offs among quality, speed, and scalability to available hardware resources.
 It is typical for 3D applications to use both visual and quantitative
 rendering techniques to satisfy user demands. Furthermore, it is common for an
 application to need rendering from local CPU or GPU hardware, with parallel
@@ -1309,7 +1309,7 @@ header and front-end library.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="api_choices_objects"><a class="anchor" href="#api_choices_objects"></a>2.3. Opaque Objects, Parameterization, and Properties</h3>
+<h3 id="api_choices_objects"><a class="anchor" href="#api_choices_objects"></a>2.3. Opaque Objects, Parametrization, and Properties</h3>
 <div class="paragraph">
 <p>The ANARI API is designed to encapsulate scene data and rendering operations
 as opaque object handles using string-value pairs to parameterize them. This
@@ -1387,7 +1387,7 @@ appendix.</p>
 <p>ANARI is designed to be compatible with applications which are distributed
 across multiple processes which may reside on multiple machines. The following
 extensions specify the semantics and required networking to enable rendering
-in distriuted applications.</p>
+in distributed applications.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1399,7 +1399,7 @@ in distriuted applications.</p>
 <div class="title">Note</div>
 <div class="paragraph">
 <p>Distributed rendering define semantics and rules for ANARI usage within
-distributed <em>applications</em>. Some devices <em>may</em> use distirbuted rendering
+distributed <em>applications</em>. Some devices <em>may</em> use distributed rendering
 resources behind the API of single-process applications, which is already
 covered by normal ANARI API usage and does not require additional specification.</p>
 </div>
@@ -1490,7 +1490,7 @@ operation.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">mpiCommunicator</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VOID_POINTER</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>MPI_COMM_WORLD</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The MPI communicator which the device should treat as the MPI world.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the MPI communicator which the device should treat as the MPI world</p></td>
 </tr>
 </tbody>
 </table>
@@ -1525,7 +1525,7 @@ July, 2024.
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes concepts common to all object types for creation,
-parameterization, and property queries.</p>
+parametrization, and property queries.</p>
 </div>
 <div class="sect2">
 <h3 id="api_concepts_thread_safety"><a class="anchor" href="#api_concepts_thread_safety"></a>3.1. Thread Safety, Asynchronous Operations</h3>
@@ -2449,7 +2449,7 @@ is committed.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Floating point number (data types with <code>FLOAT</code>) layout and behaviour are as specified in <a href="#ieee-754">[ieee-754]</a>.</p>
+<p>Floating point number (data types with <code>FLOAT</code>) layout and behavior are as specified in <a href="#ieee-754">[ieee-754]</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="color"><a class="anchor" href="#color"></a>3.6.1. Color</h4>
@@ -3616,7 +3616,7 @@ being rendered are valid before rendering occurs.</p>
 </table>
 </div>
 <div id="anariDiscardFrame" class="paragraph">
-<p>Applications can signal that an in-flight frame should be cancelled if possible
+<p>Applications can signal that an in-flight frame should be canceled if possible
 using</p>
 </div>
 <div class="listingblock">
@@ -3626,7 +3626,7 @@ using</p>
 </div>
 <div class="paragraph">
 <p>This call is not required to block until the frame completes, rather it only
-signals to the implementation to attempt cancelling the currently rendered
+signals to the implementation to attempt canceling the currently rendered
 frame instead of going all the way to completion. The contents of a mapped
 frame which has been discarded is undefined.</p>
 </div>
@@ -4086,7 +4086,7 @@ rendering, which is enabled by setting <code>stereoMode</code> and
 <td class="tableblock halign-left valign-top"><p class="tableblock">motion.translation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32_VEC3</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uniformly distributed transformlation, overridden by <code>motion.transform</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uniformly distributed translation, overridden by <code>motion.transform</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">time</p></td>
@@ -4515,7 +4515,7 @@ Instances are created with</p>
 </div>
 <div class="paragraph">
 <p>All instances take a <a href="#object_types_group">Group</a> representing all the objects which share the
-instances world-space transform. They also always take a generic <code>FLOAT32_MAT4</code>
+instance&#8217;s world-space transform. They also always take a generic <code>FLOAT32_MAT4</code>
 transform which serves as a fall back but may be overridden by subtype specific
 transform definitions.</p>
 </div>
@@ -4613,6 +4613,23 @@ and 16th float) as being (0, 0, 0, 1).</p>
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>Since the parameters of all other instance subtypes are supersets of the
+basic parameters listed above, it is recommend that the <code>transform</code> parameter
+should always be set in addition to any subtype specific transform parameters.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 22. <a href="#api_concepts_object_properties">Properties</a> queryable on an instance.</caption>
 <colgroup>
@@ -4635,23 +4652,6 @@ and 16th float) as being (0, 0, 0, 1).</p>
 </tr>
 </tbody>
 </table>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Note</div>
-<div class="paragraph">
-<p>Since the parameters of all other instance subtypes are supersets of the
-basic parameters listed above, it is recommend that the <code>transform</code> parameter
-should always be set in addition to any subtype specific transform parameters.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="sect3">
 <h4 id="object_types_instance_transform"><a class="anchor" href="#object_types_instance_transform"></a>5.5.1. Transform</h4>
 <div class="paragraph">
@@ -4686,7 +4686,7 @@ object per-transform.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">transform</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32_MAT4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of matrices, instantiating <code>group</code> once per matrix</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of matrices, instantiating <code>group</code> once per element</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
@@ -5033,11 +5033,11 @@ increasing the angular diameter will result in softer shadows (when soft
 shadows are supported by the implementation), but the overall brightness
 in the scene stays roughly the same. With <code>radiance</code> however, increasing
 the angular diameter will also result in a brighter illumination in the
-scene. Using <code>radiance</code> is only meaninful if <code>angularDiameter</code> is larger
+scene. Using <code>radiance</code> is only meaningful if <code>angularDiameter</code> is larger
 than zero (otherwise the directional light is not emitting any light).</p>
 </div>
 <div class="paragraph">
-<p>Using a direction light with an angular diameter is a good approximation
+<p>Using a directional light with an angular diameter is a good approximation
 for sunlight: the apparent size of the sun is about 0.53° or 0.00925
 rad.</p>
 </div>
@@ -5126,10 +5126,10 @@ point light supports the following special parameters:</p>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 31. Additional <a href="#api_concepts_parameters">parameters</a> understood by the point <a href="#object_types_light">light</a>.</caption>
 <colgroup>
-<col style="width: 10%;">
-<col style="width: 15%;">
-<col style="width: 10%;">
-<col style="width: 65%;">
+<col style="width: 10.8808%;">
+<col style="width: 14.5077%;">
+<col style="width: 9.8445%;">
+<col style="width: 64.767%;">
 </colgroup>
 <thead>
 <tr>
@@ -5198,7 +5198,7 @@ differs in behavior when the <code>radius</code> is changing: With <code>intensi
 shadows are supported by the implementation), but the overall brightness
 in the scene stays roughly the same. With <code>radiance</code> however, increasing
 the radius will also result in a brighter illumination in the scene.
-Using <code>radiance</code> is only meaninful if <code>radius</code> is larger than zero
+Using <code>radiance</code> is only meaningful if <code>radius</code> is larger than zero
 (otherwise the point light is not emitting any light).</p>
 </div>
 <div class="paragraph">
@@ -5218,10 +5218,10 @@ constant factor of 4π in brightness.</p>
 </div>
 <div class="paragraph">
 <p>The quad light is a planar, procedural area light source, a parallelogram,
-emitting uniformly on one side into the half-space. It is created by passing the
-subtype string <code>quad</code> to <a href="#object_types_light"><code>anariNewLight</code></a>. In addition to
-the <a href="#object_types_light">general parameters</a> understood by all lights, the
-quad light supports the following special parameters:</p>
+emitting uniformly either on one side into the half-space, or on both sides.
+It is created by passing the subtype string <code>quad</code> to <a href="#object_types_light"><code>anariNewLight</code></a>. In addition to the <a href="#object_types_light">general parameters</a>
+understood by all lights, the quad light supports the following special
+parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 32. Additional <a href="#api_concepts_parameters">parameters</a> understood by the quad <a href="#object_types_light">light</a>.</caption>
@@ -5268,18 +5268,19 @@ quad light supports the following special parameters:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">power</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">the overall amount of light energy emitted, in W;
-                                             <code>intensity</code> takes precedence if also specified</p></td>
+<td class="tableblock halign-right valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">alternative specification of the
+					     brightness (if <code>intensity</code> is not explicitly set):
+                                             the overall amount of light energy emitted, in W</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">radiance</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">the amount of light
-                                             emitted by a point on the light source in a direction,
-                                             in W/sr/m<sup>2</sup>; <code>intensity</code> (or <code>power</code>) takes
-                                             precedence if also specified</p></td>
+<td class="tableblock halign-right valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">alternative specification of the brightness (if neither
+					     <code>intensity</code> nor <code>power</code> is not explicitly set): the
+					     amount of light emitted by a point on the light source
+					     in a direction, in W/sr/m<sup>2</sup></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">side</p></td>
@@ -5299,6 +5300,32 @@ quad light supports the following special parameters:</p>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>The precedence order is <code>intensity</code>, <code>power</code>, <code>radiance</code>: the first (in
+this ordering) explicitly set parameter is used.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>The main way to specify the brightness of the quad light via <code>intensity</code>
+and its alternative specifications via <code>power</code> or <code>radiance</code> differs in
+behavior when area (determined by <code>edge1</code> and <code>edge2</code>) is changing: With
+<code>intensity</code> or <code>power</code>, increasing the area will result in softer
+shadows (when soft shadows are supported by the implementation), but the
+overall brightness in the scene stays roughly the same. With <code>radiance</code>
+however, increasing the area will also result in a brighter illumination
+in the scene.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Measured light sources (IES, EULUMDAT, …) are supported by providing an
 <code>intensityDistribution</code> <a href="#api_concepts_memory">array</a> to modulate the intensity
@@ -5389,20 +5416,6 @@ an area light and thus has a cosine falloff.</p>
                                              should be smaller than half of <code>openingAngle</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">intensity</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">the overall amount of light emitted by the light in a
-                                             direction, in W/sr</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">power</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">the overall amount of light energy emitted, in W;
-                                            <code>intensity</code> takes precedence if also specified</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">radius</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock">0</p></td>
@@ -5417,13 +5430,28 @@ an area light and thus has a cosine falloff.</p>
                                              ring; must be smaller than <code>radius</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">radiance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">intensity</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">the amount of light
-                                             emitted by a point on the light source in a direction,
-                                             in W/sr/m<sup>2</sup>; <code>intensity</code> (or <code>power</code>) takes
-                                             precedence if also specified</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the overall amount of light emitted by the light in a
+                                             direction, in W/sr</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">power</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
+<td class="tableblock halign-right valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">alternative specification of the brightness (if
+					     <code>intensity</code> is not explicitly set): the overall amount
+					     of light energy emitted, in W</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">radiance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
+<td class="tableblock halign-right valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">alternative specification of the brightness (if neither
+					     <code>intensity</code> nor <code>power</code> is explicitly set): the amount
+					     of light emitted by a point on the light source in a
+					     direction, in W/sr/m<sup>2</sup></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">intensityDistribution</p></td>
@@ -5445,9 +5473,32 @@ an area light and thus has a cosine falloff.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Setting the radius to a value greater than zero will result in soft shadows when
-the renderer uses stochastic sampling. Additionally setting the inner radius
-will result in a ring instead of a disk emitting the light.</p>
+<p>The precedence order is <code>intensity</code>, <code>power</code>, <code>radiance</code>: the first (in
+this ordering) explicitly set parameter is used.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>The main way to specify the brightness of the ring light via <code>intensity</code>
+and its alternative specifications via <code>power</code> or <code>radiance</code> differs in
+behavior when area (determined by <code>radius</code> and <code>innerRadius</code>) is
+changing: With <code>intensity</code> or <code>power</code>, increasing the area will result
+in softer shadows (when soft shadows are supported by the
+implementation), but the overall brightness in the scene stays roughly
+the same. With <code>radiance</code> however, increasing the area will also result
+in a brighter illumination in the scene.
+Using <code>radiance</code> is only meaningful if <code>radius</code> is larger than zero
+(otherwise the point light is not emitting any light).</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Measured light sources (IES, EULUMDAT, …) are supported by providing an
@@ -5865,7 +5916,7 @@ implicitly derived) <code>primitive.index</code>, which must be at most <a href=
 <p>A geometry consisting of multiple curves is created by calling
 <a href="#object_types_geometry"><code>anariNewGeometry</code></a> with type string <code>curve</code>. The vertices
 of the curve(s) are connected by linear, round segments (i.e., cones or
-clinders). The parameters defining this geometry are listed in the table
+cylinders). The parameters defining this geometry are listed in the table
 below.</p>
 </div>
 <div class="admonitionblock note">
@@ -5960,7 +6011,7 @@ them procedurally such that the curve segments are perfectly round.</p>
 <div class="paragraph">
 <p>Parameter <code>vertex.position</code> must be set and contain at least two
 elements to yield a valid curve geometry. If no <code>primitive.index</code> is
-given, then a single curve is assumed, conneting all vertices.</p>
+given, then a single curve is assumed, connecting all vertices.</p>
 </div>
 <div class="paragraph">
 <p>All <code>primitive.*</code> arrays must be at least as large as (explicitly set or
@@ -6290,7 +6341,7 @@ implicitly derived) <code>primitive.index</code>, which must be at most <a href=
 <div class="paragraph">
 <p>The <code>faceVarying.*</code> attributes map unique values to each (implicitly or
 explicitly) indexed primitive vertices, where each vertex takes a unique value
-per-primitive that uses it. Each primitive associates vertex attribues values
+per-primitive that uses it. Each primitive associates vertex attributes values
 from the attribute array using the formula <code>4 * primID + {0, 1, 2, 3}</code>.</p>
 </div>
 <div class="paragraph">
@@ -6611,7 +6662,7 @@ implicitly derived) <code>primitive.index</code>, which must be at most <a href=
 <div class="paragraph">
 <p>The <code>faceVarying.*</code> attributes map unique values to each (implicitly or
 explicitly) indexed primitive vertices, where each vertex takes a unique value
-per-primitive that uses it. Each primitive associates vertex attribues values
+per-primitive that uses it. Each primitive associates vertex attributes values
 from the attribute array using the formula <code>3 * primID + {0, 1, 2}</code>.</p>
 </div>
 <div class="paragraph">
@@ -7037,7 +7088,7 @@ inOffset</code>).</p>
 <p>The primitive sampler samples an <code>Array1D</code> at integer
 coordinates based on the <code>primitiveId</code> surface attribute.
 It is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string <code>primitive</code>.
-The <code>inOffset</code> parameter value is added to <code>primitiveID</code> before sampling.</p>
+The <code>inOffset</code> parameter value is added to <code>primitiveId</code> before sampling.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 50. <a href="#api_concepts_parameters">Parameters</a> understood by the primitive sampler.</caption>
@@ -7214,7 +7265,7 @@ independent of the viewing direction. The matte material supports
 <div class="paragraph">
 <p>If <code>color</code> is of type <code>ANARI_SAMPLER</code> or <code>ANARI_STRING</code>, the fourth
 component of the value fetched from a sampler or attribute is multiplied
-with the opacity value. The final opacity is determied by <code>alphaMode</code>:</p>
+with the opacity value. The final opacity is determined by <code>alphaMode</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -7419,7 +7470,7 @@ non-normative implementation hints, as well as to glTF extensions
 <p>If <code>baseColor</code> is of type <code>ANARI_SAMPLER</code> or <code>ANARI_STRING</code> and
 <code>alphaMode</code> is not <code>opaque</code>, the fourth component of the value fetched
 from a sampler or attribute is multiplied with the <code>opacity</code> value. The
-final opacity is determied by <code>alphaMode</code>:</p>
+final opacity is determined by <code>alphaMode</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -7799,7 +7850,7 @@ the table below.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">data</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>UINT8</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">NanoVDB grid, as a binary blob.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NanoVDB grid, as a binary blob</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">filter</p></td>
@@ -7812,7 +7863,7 @@ the table below.</p>
 </table>
 <div class="paragraph">
 <p>The <code>data</code> parameter content is expected to be a single NanoVDB grid, as read from a NanoVDB file or constructed by the NanoVDB API.
-The spatial field extent is implicitely defined in the grid header.</p>
+The spatial field extent is implicitly defined in the grid header.</p>
 </div>
 <div class="paragraph">
 <p>The device must support NanoVDB grids with major version 32.</p>
@@ -7865,7 +7916,7 @@ below.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cell.data</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>UFIXED8</code> / <code>FIXED16</code> / <code>UFIXED16</code> / <code>FLOAT32</code> / <code>FLOAT64</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of values in cells</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">alternative specification of the values (if <code>vertex.data</code> is not explicitly set): array of values in cells</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cell.type</p></td>
@@ -7881,7 +7932,7 @@ below.</p>
 </table>
 <div class="paragraph">
 <p>Sampled cell values can be specified either per-vertex (via <code>vertex.data</code>) or
-per-cell (via <code>cell.data</code>). If both arrays are set, <code>vertex.data</code> takes
+per-cell (via <code>cell.data</code>). If both arrays are explicitly set, <code>vertex.data</code> takes
 precedence.</p>
 </div>
 <div class="paragraph">
@@ -7916,11 +7967,11 @@ counterclockwise, then the top vertex.</p>
 <td class="content">
 <div class="title">Note</div>
 <div class="paragraph">
-<p>The unstructured spatial field is modelled after and thus compatible to
+<p>The unstructured spatial field is modeled after and thus compatible to
 <code>vtkUnstructuredGrid</code>: <code>cell.type</code> values are the same as VTK cell types, and
 the the index order of the cells is the same as their VTK counterparts
 (<code>VTK_TETRA</code>, <code>VTK_HEXAHEDRON</code>, <code>VTK_WEDGE</code>, and <code>VTK_PYRAMID</code>). The arrays
-<code>cell.index</code> cooresponds to the Offsets array and <code>index</code> to the Connectivity
+<code>cell.index</code> corresponds to the Offsets array and <code>index</code> to the Connectivity
 array of (current, not legacy) <code>vtkCellArray</code>.</p>
 </div>
 </td>
@@ -8167,7 +8218,7 @@ array of (current, not legacy) <code>vtkCellArray</code>.</p>
 <p><a href="#object_types_geometry_quad"><code>KHR_GEOMETRY_QUAD</code></a>: <code>quad</code> geometry subtype is supported</p>
 </li>
 <li>
-<p><a href="#extension_geometry_quad_motion_deformation"><code>KHR_GEOMETRY_QUAD_MOTION_DEFORMATION</code></a>: <code>quad</code> geometry subtype supports deformation mortion blur</p>
+<p><a href="#extension_geometry_quad_motion_deformation"><code>KHR_GEOMETRY_QUAD_MOTION_DEFORMATION</code></a>: <code>quad</code> geometry subtype supports deformation motion blur</p>
 </li>
 <li>
 <p><a href="#object_types_geometry_sphere"><code>KHR_GEOMETRY_SPHERE</code></a>: <code>sphere</code> geometry subtype is supported</p>
@@ -8176,7 +8227,7 @@ array of (current, not legacy) <code>vtkCellArray</code>.</p>
 <p><a href="#object_types_geometry_triangle"><code>KHR_GEOMETRY_TRIANGLE</code></a>: <code>triangle</code> geometry subtype is supported</p>
 </li>
 <li>
-<p><a href="#extension_geometry_triangle_motion_deformation"><code>KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION</code></a>: <code>triangle</code> geometry subtype supports deformation mortion blur</p>
+<p><a href="#extension_geometry_triangle_motion_deformation"><code>KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION</code></a>: <code>triangle</code> geometry subtype supports deformation motion blur</p>
 </li>
 <li>
 <p><a href="#object_types_instance_transform"><code>KHR_INSTANCE_TRANSFORM</code></a>: basic <code>transform</code> instance subtype is supported</p>
@@ -8435,7 +8486,7 @@ Communications.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.1.0<br>
-Last updated 2025-08-05 21:01:59 UTC
+Last updated 2025-08-06 17:33:53 UTC
 </div>
 </div>
 
