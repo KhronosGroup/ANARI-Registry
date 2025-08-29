@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.1.0,</span>
-<span id="revdate">2025-08-06 17:34:34Z</span>
+<span id="revdate">2025-08-29 14:23:15Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -997,7 +997,13 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#function_index">Appendix A: Function Index (Informative)</a></li>
 <li><a href="#extension_index">Appendix B: Extension Index (Informative)</a></li>
 <li><a href="#transferFunction1D_algorithm">Appendix C: Example Algorithm for Rendering a TransferFunction1D Volume (Informative)</a></li>
-<li><a href="#credits">Appendix D: Credits (Informative)</a>
+<li><a href="#changelog">Appendix D: Changes in Version 1.1 (Informative)</a>
+<ul class="sectlevel2">
+<li><a href="#_new_extensions">New Extensions</a></li>
+<li><a href="#_changes_to_core_functionality_and_extensions">Changes to Core Functionality and Extensions</a></li>
+</ul>
+</li>
+<li><a href="#credits">Appendix E: Credits (Informative)</a>
 <ul class="sectlevel2">
 <li><a href="#_working_group_contributors_to_anari">Working Group Contributors to ANARI</a>
 <ul class="sectlevel3">
@@ -2787,8 +2793,9 @@ The following infos of parameters can be queried:</p>
 <td class="content">
 <div class="title">Note</div>
 <div class="paragraph">
-<p>The <code>initializer</code> flag is only present for devices and represents immutable parameters
-passed during device creation via <a href="#api_concepts_devices"><code>anariNewInitializedDevice</code></a>.</p>
+<p>The <code>initializer</code> flag is only present for devices and represents
+immutable parameters passed during device creation via
+<a href="#anariNewInitializedDevice"><code>anariNewInitializedDevice</code></a>.</p>
 </div>
 </td>
 </tr>
@@ -3266,7 +3273,7 @@ kernel queues.</p>
 <pre class="CodeRay highlight"><code data-lang="cpp">ANARIDevice anariNewDevice(ANARILibrary, <span class="directive">const</span> <span class="predefined-type">char</span> *subtype);</code></pre>
 </div>
 </div>
-<div class="paragraph">
+<div id="anariNewInitializedDevice" class="paragraph">
 <p>Some devices may have device parameters that can only be set once: for example,
 choosing a particular GPU used for rendering on a machine with more than one.
 Devices should always be usable with <code>anariNewDevice</code> having sensible defaults,
@@ -4428,8 +4435,7 @@ and illuminates it from infinity.</p>
 <div class="sect2">
 <h3 id="object_types_world"><a class="anchor" href="#object_types_world"></a>5.4. World</h3>
 <div id="anariNewWorld" class="paragraph">
-<p>Worlds are a container of scene data represented by
-<a href="#instance">instances</a>. Worlds are created with</p>
+<p>Worlds are a container of scene data. Worlds are created with</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4438,9 +4444,8 @@ and illuminates it from infinity.</p>
 </div>
 <div class="paragraph">
 <p>Objects are placed in the world through an array of instances, geometries,
-volumes, or lights. Similar to <a href="#instance">instances</a>, each array of objects
-is optional; there is no need to create empty arrays if there are no instances
-(though there might be nothing to render).</p>
+volumes, or lights. Each array of objects is optional (though there might be
+nothing to render).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 19. <a href="#api_concepts_parameters">Parameters</a> understood by the world.</caption>
@@ -7645,7 +7650,7 @@ create a new volume object of given subtype <code>subtype</code> use</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unitDistance</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock">1.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">distance after which a 'opacity' fraction of light traveling through the volume is absorbed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">distance after which a <code>opacity</code> fraction of light traveling through the volume is absorbed</p></td>
 </tr>
 </tbody>
 </table>
@@ -7683,7 +7688,7 @@ opacity to form the final opacity.</p>
 (colored) light emitting particles whose local density is defined at each point
 of the spatial field by the final opacity and <code>unitDistance</code>: the fraction of
 light which is absorbed while traveling a <code>unitDistance</code> length through the
-volume will be 'opacity'.</p>
+volume will be <code>opacity</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -8077,6 +8082,9 @@ array of (current, not legacy) <code>vtkCellArray</code>.</p>
 <p><a href="#anariNewGroup"><code>anariNewGroup</code></a></p>
 </li>
 <li>
+<p><a href="#anariNewInitializedDevice"><code>anariNewInitializedDevice</code></a></p>
+</li>
+<li>
 <p><a href="#anariNewInstance"><code>anariNewInstance</code></a></p>
 </li>
 <li>
@@ -8149,7 +8157,7 @@ array of (current, not legacy) <code>vtkCellArray</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#extension_array1d_region"><code>KHR_ARRAY1D_REGION</code></a>: Permit runtime changeable valid array region</p>
+<p><a href="#extension_array1d_region"><code>KHR_ARRAY1D_REGION</code></a>: permit runtime changeable valid array region</p>
 </li>
 <li>
 <p><a href="#extension_camera_depth_of_field"><code>KHR_CAMERA_DEPTH_OF_FIELD</code></a>: depth of field is supported</p>
@@ -8176,13 +8184,13 @@ array of (current, not legacy) <code>vtkCellArray</code>.</p>
 <p><a href="#extension_camera_stereo"><code>KHR_CAMERA_STEREO</code></a>: 3D stereo rendering is supported</p>
 </li>
 <li>
-<p><a href="#api_choices_data_parallel_mpi"><code>KHR_DATA_PARALLEL_MPI</code></a>: Data-parallel rendering using MPI is supported</p>
+<p><a href="#api_choices_data_parallel_mpi"><code>KHR_DATA_PARALLEL_MPI</code></a>: data-parallel rendering using MPI is supported</p>
 </li>
 <li>
-<p><a href="#api_concepts_thread_safety"><code>KHR_DEVICE_SYNCHRONIZATION</code></a>: Relax API function synchronization requirement</p>
+<p><a href="#api_concepts_thread_safety"><code>KHR_DEVICE_SYNCHRONIZATION</code></a>: relax API function synchronization requirement</p>
 </li>
 <li>
-<p><a href="#extension_frame_accumulation"><code>KHR_FRAME_ACCUMULATION</code></a>: Frames are progressively rendered</p>
+<p><a href="#extension_frame_accumulation"><code>KHR_FRAME_ACCUMULATION</code></a>: frames are progressively rendered</p>
 </li>
 <li>
 <p><a href="#frame_channels"><code>KHR_FRAME_CHANNEL_NORMAL</code></a>: <code>channel.normal</code> is supported on ANARIFrame</p>
@@ -8200,7 +8208,7 @@ array of (current, not legacy) <code>vtkCellArray</code>.</p>
 <p><a href="#frame_channels"><code>KHR_FRAME_CHANNEL_INSTANCE_ID</code></a>: <code>channel.instanceId</code> is supported on ANARIFrame</p>
 </li>
 <li>
-<p><a href="#extension_frame_completion_callback"><code>KHR_FRAME_COMPLETION_CALLBACK</code></a>: Frame completion callback function parameters on ANARIFrame are supported</p>
+<p><a href="#extension_frame_completion_callback"><code>KHR_FRAME_COMPLETION_CALLBACK</code></a>: frame completion callback function parameters on ANARIFrame are supported</p>
 </li>
 <li>
 <p><a href="#object_types_geometry_cone"><code>KHR_GEOMETRY_CONE</code></a>: <code>cone</code> geometry subtype is supported</p>
@@ -8353,7 +8361,89 @@ volume object.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="credits"><a class="anchor" href="#credits"></a>Appendix D: Credits (Informative)</h2>
+<h2 id="changelog"><a class="anchor" href="#changelog"></a>Appendix D: Changes in Version 1.1 (Informative)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_new_extensions"><a class="anchor" href="#_new_extensions"></a>New Extensions</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#api_choices_data_parallel_mpi"><code>KHR_DATA_PARALLEL_MPI</code></a>: data-parallel rendering using MPI</p>
+</li>
+<li>
+<p><a href="#object_types_geometry_isosurface"><code>KHR_GEOMETRY_ISOSURFACE</code></a>: <code>isosurface</code> geometry subtype</p>
+</li>
+<li>
+<p><a href="#extension_instance_transform_array"><code>KHR_INSTANCE_TRANSFORM_ARRAY</code></a>: the basic <code>transform</code> instance subtype supports matrix arrays</p>
+</li>
+<li>
+<p><a href="#extension_light_primary_visibility"><code>KHR_LIGHT_PRIMARY_VISIBILITY</code></a>: whether primary visibility of area lights can be controlled</p>
+</li>
+<li>
+<p><a href="#extension_renderer"><code>KHR_RENDERER_DENOISE</code></a>:  the renderer supports denoising</p>
+</li>
+<li>
+<p><a href="#object_types_spatial_field_nanovdb"><code>KHR_SPATIAL_FIELD_NANOVDB</code></a>: <code>nanovdb</code> spatial field subtype</p>
+</li>
+<li>
+<p><a href="#object_types_spatial_field_structured_regular"><code>KHR_SPATIAL_FIELD_STRUCTURED_REGULAR_FILTER_CUBIC</code></a>: <code>structuredRegular</code> spatial field supports <code>cubic</code> filtering for parameter <code>filter</code></p>
+</li>
+<li>
+<p><a href="#object_types_spatial_field_unstructured"><code>KHR_SPATIAL_FIELD_UNSTRUCTURED</code></a>: <code>unstructured</code> spatial field subtype</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_changes_to_core_functionality_and_extensions"><a class="anchor" href="#_changes_to_core_functionality_and_extensions"></a>Changes to Core Functionality and Extensions</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>New API function <a href="#anariNewInitializedDevice"><code>anariNewInitializedDevice</code></a>
+to pass parameters which cannot be changed later; those parameters are
+indicated by the new <a href="#anariGetParameterInfo">parameter info</a> <code>initializer</code></p>
+</li>
+<li>
+<p>Added uniform attributes with parameters <code>color</code>, and <code>attribute0</code> to
+<code>attribute3</code> to <a href="#object_types_geometry">geometry</a> and <a href="#object_types_instance">instance</a></p>
+</li>
+<li>
+<p>Added face-varying normals, tangents, and attributes with parameters
+<code>faceVarying.normal</code>, <code>faceVarying.tangent</code>, <code>faceVarying.color</code>, and
+<code>faceVarying.attribute0</code> to <code>faceVarying.attribute3</code> to <a href="#object_types_geometry_triangle">triangle</a>
+and <a href="#object_types_light_quad">quad</a> geometries</p>
+</li>
+<li>
+<p>Unified <code>outTransform</code> and <code>outOffset</code> parameters across all
+<a href="#object_types_sampler">samplers</a>, in particular for the
+<a href="#object_types_sampler_primitive">primitive</a> sampler</p>
+</li>
+<li>
+<p>Added <code>visible</code> parameter to <a href="#object_types_surface">surface</a> and <a href="#object_types_volume">volume</a></p>
+</li>
+<li>
+<p>New <a href="#api_concepts_devices">device</a> properties <code>anariVersion.major</code> and
+<code>anariVersion.minor</code> for targeted specification version</p>
+</li>
+<li>
+<p>New <a href="#anariGetParameterInfo">parameter info</a> <code>softMinimum</code> and
+<code>softMaximum</code> as hints for GUI widgets</p>
+</li>
+<li>
+<p>Changed <code>ANARI_BOOL</code> to be 8 bit wide</p>
+</li>
+<li>
+<p>No implicit generation of user Ids anymore for extensions <a href="#frame_channels"><code>KHR_FRAME_CHANNEL_OBJECT_ID</code></a> and <a href="#frame_channels"><code>KHR_FRAME_CHANNEL_INSTANCE_ID</code></a>; if the <code>id</code> parameter is not explicitly set
+at <a href="#object_types_surface">surface</a>, <a href="#object_types_volume">volume</a>, or <a href="#object_types_instance">instance</a>, then
+always the default -1u will be used</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="credits"><a class="anchor" href="#credits"></a>Appendix E: Credits (Informative)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>ANARI 1.1 is the result of contributions from many people and companies
@@ -8486,7 +8576,7 @@ Communications.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.1.0<br>
-Last updated 2025-08-06 17:33:53 UTC
+Last updated 2025-08-29 14:22:34 UTC
 </div>
 </div>
 
