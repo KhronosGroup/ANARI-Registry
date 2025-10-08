@@ -8,18 +8,23 @@ include_once("../../assets/static_pages/khr_page_top.php");
 
 <h2> <a name="specs"></a> <b>ANARI Specification</b> </h2>
 
-<p> The current version of ANARI is 1.0: </p>
+<p> The current version of ANARI is 1.1: </p>
 
 <ul>
+<li> (Draft) ANARI 1.2 Specification
+     <a href="https://registry.khronos.org/ANARI/specs/1.2-draft/ANARI-1.2.html">HTML</a> or
+     <a href="https://github.com/KhronosGroup/ANARI-Registry/blob/main/specs/1.2-draft/ANARI-1.2.pdf">
+     PDF</a>. </li>
+
+<li> ANARI 1.1 Specification
+     <a href="https://registry.khronos.org/ANARI/specs/1.1/ANARI-1.1.html">HTML</a> or
+     <a href="https://github.com/KhronosGroup/ANARI-Registry/blob/main/specs/1.1/ANARI-1.1.pdf">
+     PDF</a>. </li>
+
 <li> ANARI 1.0 Specification
      <a href="https://registry.khronos.org/ANARI/specs/1.0/ANARI-1.0.html">HTML</a> or
      <a href="https://github.com/KhronosGroup/ANARI-Registry/blob/main/specs/1.0/ANARI-1.0.pdf">
-     PDF</a> (rendered by GitHub). </li>
-
-<li> (Draft) ANARI 1.1 Specification
-     <a href="https://registry.khronos.org/ANARI/specs/1.1-draft/ANARI-1.1.html">HTML</a> or
-     <a href="https://github.com/KhronosGroup/ANARI-Registry/blob/main/specs/1.1-draft/ANARI-1.1.pdf">
-     PDF</a> (rendered by GitHub). </li>
+     PDF</a>. </li>
 </ul>
 
 <p> Khronos welcomes comments and issue reports. </p>
