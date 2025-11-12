@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.2.0,</span>
-<span id="revdate">2025-10-08 19:05:39Z</span>
+<span id="revdate">2025-11-12 10:45:24Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -997,13 +997,19 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#function_index">Appendix A: Function Index (Informative)</a></li>
 <li><a href="#extension_index">Appendix B: Extension Index (Informative)</a></li>
 <li><a href="#transferFunction1D_algorithm">Appendix C: Example Algorithm for Rendering a TransferFunction1D Volume (Informative)</a></li>
-<li><a href="#changelog">Appendix D: Changes in Version 1.1 (Informative)</a>
+<li><a href="#changelog12">Appendix D: Changes in Version 1.2 (Informative)</a>
 <ul class="sectlevel2">
 <li><a href="#_new_extensions">New Extensions</a></li>
 <li><a href="#_changes_to_core_functionality_and_extensions">Changes to Core Functionality and Extensions</a></li>
 </ul>
 </li>
-<li><a href="#credits">Appendix E: Credits (Informative)</a>
+<li><a href="#changelog11">Appendix E: Changes in Version 1.1 (Informative)</a>
+<ul class="sectlevel2">
+<li><a href="#_new_extensions_2">New Extensions</a></li>
+<li><a href="#_changes_to_core_functionality_and_extensions_2">Changes to Core Functionality and Extensions</a></li>
+</ul>
+</li>
+<li><a href="#credits">Appendix F: Credits (Informative)</a>
 <ul class="sectlevel2">
 <li><a href="#_working_group_contributors_to_anari">Working Group Contributors to ANARI</a>
 <ul class="sectlevel3">
@@ -6798,6 +6804,9 @@ outOffset</code>).</p>
 <p>A one dimensional image sampler is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string <code>image1D</code>. It accepts the following
 parameters.</p>
 </div>
+<div id="extension_sampler_image1d_clamp_to_border" class="paragraph">
+<p>The <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code> extension adds the <code>clampToBorder</code> mode to <code>wrapMode</code>.</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 47. <a href="#api_concepts_parameters">Parameters</a> understood by the 1D image sampler.</caption>
 <colgroup>
@@ -6849,7 +6858,13 @@ parameters.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wrapMode</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock"><code>clampToEdge</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code>, <code>clampToBorder</code> (extension <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">borderColor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">(0, 0, 0, 0)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extension <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code>, border color used when wrapMode is <code>clampToBorder</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -6889,6 +6904,9 @@ inOffset</code>).</p>
 </div>
 <div class="paragraph">
 <p>A two dimensional image sampler is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string <code>image2D</code>. It accepts the following parameters.</p>
+</div>
+<div id="extension_sampler_image2d_clamp_to_border" class="paragraph">
+<p>The <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code> extension adds the <code>clampToBorder</code> mode to <code>wrapMode1</code> and <code>wrapMode2</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 48. <a href="#api_concepts_parameters">Parameters</a> understood by the 2D image sampler.</caption>
@@ -6941,13 +6959,19 @@ inOffset</code>).</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wrapMode1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock"><code>clampToEdge</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 1st dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 1st dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code>, <code>clampToBorder</code> (extension <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code>)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wrapMode2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock"><code>clampToEdge</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 2nd dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 2nd dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code>, <code>clampToBorder</code> (extension <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">borderColor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">(0, 0, 0, 0)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extension <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code>, border color used when wrapMode is <code>clampToBorder</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -6987,6 +7011,9 @@ inOffset</code>).</p>
 </div>
 <div class="paragraph">
 <p>A three dimensional image sampler is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string <code>image3D</code>. It accepts the following parameters.</p>
+</div>
+<div id="extension_sampler_image3d_clamp_to_border" class="paragraph">
+<p>The <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code> extension adds the <code>clampToBorder</code> mode to <code>wrapMode1</code>, <code>wrapMode2</code> and <code>wrapMode3</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 49. <a href="#api_concepts_parameters">Parameters</a> understood by the 3D image sampler.</caption>
@@ -7039,19 +7066,25 @@ inOffset</code>).</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wrapMode1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock"><code>clampToEdge</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 1st dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 1st dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code>, <code>clampToBorder</code> (extension <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code>)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wrapMode2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock"><code>clampToEdge</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 2nd dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 2nd dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code>, <code>clampToBorder</code> (extension <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code>)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wrapMode3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock"><code>clampToEdge</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 3rd dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wrap mode of the sampler for the 3rd dimension, possible values: <code>clampToEdge</code>, <code>repeat</code>, <code>mirrorRepeat</code>, <code>clampToBorder</code> (extension <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">borderColor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC4</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">(0, 0, 0, 0)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extension <code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code>, border color used when wrapMode is <code>clampToBorder</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -8298,6 +8331,22 @@ array of (current, not legacy) <code>vtkCellArray</code>.</p>
 <p><a href="#object_types_sampler_image3D"><code>KHR_SAMPLER_IMAGE3D</code></a>: <code>image3D</code> sampler subtype is supported</p>
 </li>
 <li>
+<p><a href="#extension_sampler_imagexd_clamp_to_border"><code>KHR_SAMPLER_IMAGE_CLAMPxD_TO_BORDER</code></a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#extension_sampler_image1d_clamp_to_border"><code>image1D</code></a> sampler <code>wrapMode</code> supports <code>clampToBorder</code></p>
+</li>
+<li>
+<p><a href="#extension_sampler_image2d_clamp_to_border"><code>image2D</code></a> sampler <code>wrapMode1</code> and <code>wrapMode2</code> support <code>clampToBorder</code></p>
+</li>
+<li>
+<p><a href="#extension_sampler_image3d_clamp_to_border"><code>image3D</code></a> sampler <code>wrapMode1</code>, <code>wrapMode2</code> and <code>wrapMode3</code> support <code>clampToBorder</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
 <p><a href="#object_types_sampler_primitive"><code>KHR_SAMPLER_PRIMITIVE</code></a>: <code>primitive</code> sampler subtype is supported</p>
 </li>
 <li>
@@ -8361,10 +8410,49 @@ volume object.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="changelog"><a class="anchor" href="#changelog"></a>Appendix D: Changes in Version 1.1 (Informative)</h2>
+<h2 id="changelog12"><a class="anchor" href="#changelog12"></a>Appendix D: Changes in Version 1.2 (Informative)</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_new_extensions"><a class="anchor" href="#_new_extensions"></a>New Extensions</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#extension_sampler_imagexd_clamp_to_border"><code>KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER</code></a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>image1D</code> sampler <code>wrapMode</code> supports <code>clampToBorder</code></p>
+</li>
+<li>
+<p><code>image2D</code> sampler <code>wrapMode1</code> and <code>wrapMode2</code> support <code>clampToBorder</code></p>
+</li>
+<li>
+<p><code>image3D</code> sampler <code>wrapMode1</code>, <code>wrapMode2</code> and <code>wrapMode3</code> support <code>clampToBorder</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_changes_to_core_functionality_and_extensions"><a class="anchor" href="#_changes_to_core_functionality_and_extensions"></a>Changes to Core Functionality and Extensions</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Added <code>clampToBorder</code> to <code>wrapMode1</code>, <code>wrapMode2</code>, <code>wrapMode3</code> to <a href="#object_types_sampler_image1D">image1d</a>,
+<a href="#object_types_sampler_image2D">image2d</a> and <a href="#object_types_sampler_image3D">image3d</a> samplers.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="changelog11"><a class="anchor" href="#changelog11"></a>Appendix E: Changes in Version 1.1 (Informative)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_new_extensions_2"><a class="anchor" href="#_new_extensions_2"></a>New Extensions</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -8395,7 +8483,7 @@ volume object.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_changes_to_core_functionality_and_extensions"><a class="anchor" href="#_changes_to_core_functionality_and_extensions"></a>Changes to Core Functionality and Extensions</h3>
+<h3 id="_changes_to_core_functionality_and_extensions_2"><a class="anchor" href="#_changes_to_core_functionality_and_extensions_2"></a>Changes to Core Functionality and Extensions</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -8443,7 +8531,7 @@ always the default -1u will be used</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="credits"><a class="anchor" href="#credits"></a>Appendix E: Credits (Informative)</h2>
+<h2 id="credits"><a class="anchor" href="#credits"></a>Appendix F: Credits (Informative)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>ANARI 1.1 is the result of contributions from many people and companies
@@ -8576,7 +8664,7 @@ Communications.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.2.0<br>
-Last updated 2025-10-08 19:05:01 UTC
+Last updated 2025-11-12 10:44:48 UTC
 </div>
 </div>
 
