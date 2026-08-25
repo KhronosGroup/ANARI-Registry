@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.2.0,</span>
-<span id="revdate">2025-11-12 10:45:24Z</span>
+<span id="revdate">2026-08-05 17:38:57Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -4159,7 +4159,7 @@ below.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">aspect</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-right valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ratio of width by height of the frame (and image region)</p></td>
 </tr>
 <tr>
@@ -4176,6 +4176,10 @@ below.</p>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>When left unset, the <code>aspect</code> ratio parameter is calculated using the dimensions
+of the parent <a href="#object_types_frame">Frame</a> object.</p>
+</div>
 <div class="paragraph">
 <p>Note that when computing the <code>aspect</code> ratio a potentially set image
 region (using <code>imageRegion</code>) needs to be regarded as well.</p>
@@ -4275,7 +4279,7 @@ special parameters:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">aspect</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-right valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ratio of width by height of the frame (and image region)</p></td>
 </tr>
 <tr>
@@ -4298,6 +4302,10 @@ special parameters:</p>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>When left unset, the <code>aspect</code> ratio parameter is calculated using the dimensions
+of the parent <a href="#object_types_frame">Frame</a> object.</p>
+</div>
 <div class="paragraph">
 <p>Note that when computing the <code>aspect</code> ratio a potentially set image
 region (using <code>imageRegion</code>) needs to be regarded as well.</p>
@@ -7255,7 +7263,7 @@ during rendering.</p>
 <p>The <code>matte</code> material reflects light uniformly into the hemisphere, i.e.,
 it exhibits Lambertian reflectance and thus its apparent brightness is
 independent of the viewing direction. The matte material supports
-(partial) cut-out transparency depending on <code>alphaMode</code>.</p>
+(partial) cut-out transparency via <code>opacity</code> and <code>alphaCutoff</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 52. <a href="#api_concepts_parameters">Parameters</a> of the matte material.</caption>
@@ -7287,38 +7295,20 @@ independent of the viewing direction. The matte material supports
 <td class="tableblock halign-left valign-top"><p class="tableblock">opacity</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">alphaMode</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>opaque</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">control cut-out transparency, possible values: <code>opaque</code>, <code>blend</code>, <code>mask</code></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">alphaCutoff</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">0.5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">threshold when <code>alphaMode</code> is <code>mask</code></p></td>
+<td class="tableblock halign-right valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional threshold to binarize <code>opacity</code></p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
 <p>If <code>color</code> is of type <code>ANARI_SAMPLER</code> or <code>ANARI_STRING</code>, the fourth
 component of the value fetched from a sampler or attribute is multiplied
-with the opacity value. The final opacity is determined by <code>alphaMode</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>opaque</code>: fully opaque (opacity treated as 1)</p>
-</li>
-<li>
-<p><code>blend</code>: partial opacity</p>
-</li>
-<li>
-<p><code>mask</code>: fully opaque (opacity treated as 1) if the computed opacity
-value is greater than or equal to <code>alphaCutoff</code>, otherwise fully
-transparent (opacity treated 0)</p>
-</li>
-</ul>
+with the opacity value. The final opacity is binary when <code>alphaCutoff</code> is
+set: fully opaque (opacity treated as 1) if the computed opacity value is
+greater than or equal to <code>alphaCutoff</code>, otherwise fully transparent (opacity
+treated 0).</p>
 </div>
 </div>
 <div class="sect3">
@@ -7371,6 +7361,12 @@ non-normative implementation hints, as well as to glTF extensions
 <td class="tableblock halign-left valign-top"><p class="tableblock">opacity</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">alphaCutoff</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
+<td class="tableblock halign-right valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional threshold to binarize <code>opacity</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">metallic</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code> / <code>SAMPLER</code> / <code>STRING</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock">1.0</p></td>
@@ -7399,18 +7395,6 @@ non-normative implementation hints, as well as to glTF extensions
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>SAMPLER</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">occlusion map</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">alphaMode</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>opaque</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">control cut-out transparency, possible values: <code>opaque</code>, <code>blend</code>, <code>mask</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">alphaCutoff</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">0.5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">threshold when <code>alphaMode</code> is <code>mask</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">specular</p></td>
@@ -7505,25 +7489,11 @@ non-normative implementation hints, as well as to glTF extensions
 </tbody>
 </table>
 <div class="paragraph">
-<p>If <code>baseColor</code> is of type <code>ANARI_SAMPLER</code> or <code>ANARI_STRING</code> and
-<code>alphaMode</code> is not <code>opaque</code>, the fourth component of the value fetched
-from a sampler or attribute is multiplied with the <code>opacity</code> value. The
-final opacity is determined by <code>alphaMode</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>opaque</code>: fully opaque (opacity treated as 1)</p>
-</li>
-<li>
-<p><code>blend</code>: partial opacity</p>
-</li>
-<li>
-<p><code>mask</code>: fully opaque (opacity treated as 1) if the computed opacity
-value is greater than or equal to <code>alphaCutoff</code>, otherwise fully
-transparent (opacity treated 0)</p>
-</li>
-</ul>
+<p>If <code>baseColor</code> is of type <code>ANARI_SAMPLER</code> or <code>ANARI_STRING</code> the fourth component
+of the value fetched from a sampler or attribute is multiplied with the
+<code>opacity</code> value. The final opacity is binary when <code>alphaCutoff</code> is set: fully
+opaque (opacity treated as 1) if the computed opacity value is greater than or
+equal to <code>alphaCutoff</code>, otherwise fully transparent (opacity treated 0)</p>
 </div>
 <div class="paragraph">
 <p>The values sampled from samplers <code>normal</code> and <code>clearcoatNormal</code>
@@ -7542,6 +7512,12 @@ range <code>[0, 1]</code>).</p>
 <div class="paragraph">
 <p>To use the glTF <code>metallicRoughnessTexture</code> create two samplers with the
 same <code>image</code> array and a "swizzle" <code>outTransform</code> for <code>roughness</code>.</p>
+</div>
+<div class="paragraph">
+<p>To handle glTF <code>alphaMode</code>, for
+* <code>opaque</code>: do not use any opacity, or set <code>alphaCutoff</code> to 0.0
+* <code>blend</code>: do not set <code>alphaCutoff</code>
+* <code>mask</code>: set <code>alphaCutoff</code> appropriately</p>
 </div>
 <div class="paragraph">
 <p>The normal maps <code>normal</code> and <code>clearcoatNormal</code> typically use an
@@ -8440,6 +8416,15 @@ volume object.</p>
 <div class="ulist">
 <ul>
 <li>
+<p>Changed the default of <code>aspect</code> ratio of <a href="#object_types_camera_orthographic"><code>orthographic</code></a> and <a href="#object_types_camera_perspective"><code>perspective</code></a> camera
+to be calcualted using the dimensions of the parent <a href="#object_types_frame">Frame</a> object.</p>
+</li>
+<li>
+<p>Removed parameter <code>alphaMode</code> from <a href="#object_types_material_matte"><code>matte</code></a>
+and <a href="#object_types_material_physically_based"><code>physicallyBased</code></a> material;
+<code>mask</code> is used implicitly when <code>alphaCutoff</code> is set.</p>
+</li>
+<li>
 <p>Added <code>clampToBorder</code> to <code>wrapMode1</code>, <code>wrapMode2</code>, <code>wrapMode3</code> to <a href="#object_types_sampler_image1D">image1d</a>,
 <a href="#object_types_sampler_image2D">image2d</a> and <a href="#object_types_sampler_image3D">image3d</a> samplers.</p>
 </li>
@@ -8664,7 +8649,7 @@ Communications.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.2.0<br>
-Last updated 2025-11-12 10:44:48 UTC
+Last updated 2026-08-05 17:38:20 UTC
 </div>
 </div>
 
