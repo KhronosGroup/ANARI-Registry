@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.2.0,</span>
-<span id="revdate">2026-08-05 17:38:57Z</span>
+<span id="revdate">2026-09-22 21:13:31Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -2913,7 +2913,8 @@ currently mapped array configuration.</p>
 <div class="paragraph">
 <p>Devices are only required to allocate directly mapped arrays for parameters
 corresponding to extensions that the device implements. In cases where the
-parameter is unknown by the device, the device is permitted to return <code>NULL</code>.</p>
+parameter is unknown by the device or an error is encountered, the device is
+permitted to return <code>NULL</code>.</p>
 </div>
 <div class="paragraph">
 <p>Devices are permitted to have a non-dense element stride, which is returned by
@@ -2927,6 +2928,10 @@ consume the data with</p>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> anariUnmapParameterArray(ANARIDevice, ANARIObject, <span class="directive">const</span> <span class="predefined-type">char</span> *parameterName);</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>If a parameter mapping returned <code>NULL</code> the parameter has not been mapped and does not
+require a matching unmap operation.</p>
 </div>
 <div class="paragraph">
 <p>Directly mapped arrays behave like normal parameters in that the underlying
@@ -3042,6 +3047,11 @@ when constructing the array object. Mapping a managed array may return a
 different pointer each time it is mapped. The contents of memory mapped from
 managed arrays is undefined until written to and the entire mapped range must be
 specified before unmapping to avoid populating the array with undefined values.</p>
+</div>
+<div class="paragraph">
+<p>Mapping a managed array may return <code>NULL</code> in case an error is encountered by the device.
+If the mapping returned <code>NULL</code> the array has not been mapped and does not
+require a matching unmap operation.</p>
 </div>
 <div class="paragraph">
 <p><code>ANARIArray</code> objects containing object handles increase the ref count
@@ -3664,6 +3674,10 @@ value. The arguments <code>width</code>, <code>height</code>, and <code>pixelTyp
 for the application to validate the exact dimensions and per-pixel data type in
 the mapped image.</p>
 </div>
+<div class="paragraph">
+<p>If the channel cannot be mapped <code>NULL</code> is returned, <code>width</code> and <code>height</code> are set
+to 0 and <code>pixelType</code> is set to <code>ANARI_UNKNOWN</code>.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -3697,6 +3711,10 @@ lower left pixel of the image.</p>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> anariUnmapFrame(ANARIDevice, ANARIFrame, <span class="directive">const</span> <span class="predefined-type">char</span> *channel);</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Channels whose mapping returned <code>NULL</code> have not been mapped and do not
+require a matching unmap operation.</p>
 </div>
 </div>
 </div>
@@ -8649,7 +8667,7 @@ Communications.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.2.0<br>
-Last updated 2026-08-05 17:38:20 UTC
+Last updated 2026-09-22 21:12:37 UTC
 </div>
 </div>
 
