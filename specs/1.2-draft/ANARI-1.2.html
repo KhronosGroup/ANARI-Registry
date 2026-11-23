@@ -868,7 +868,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="details">
 <span id="author" class="author">The Khronos<sup>®</sup> ANARI Working Group</span><br>
 <span id="revnumber">version 1.2.0,</span>
-<span id="revdate">2026-10-21 13:05:54Z</span>
+<span id="revdate">2026-11-23 09:38:01Z</span>
 <br><span id="revremark">from git branch: Git branch not available commit: Git commit not available</span>
 </div>
 <div id="toc" class="toc2">
@@ -2790,6 +2790,13 @@ The following infos of parameters can be queried:</p>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>If a parameter has a default value, the <code>default</code> information returned by
+<code>anariGetParameterInfo</code> must report the default value used by the queried device,
+including implementation-defined defaults where this specification does not
+define one. Parameters that remain unset by default have no default value; for
+these parameters, querying <code>default</code> must return <code>NULL</code>.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -4450,7 +4457,7 @@ some typical parameters are specified by the following extensions.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">denoise</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>BOOL</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>FALSE</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">implementation-defined</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">extension <code>KHR_RENDERER_DENOISE</code>, whether the rendered image should be denoised</p></td>
 </tr>
 </tbody>
@@ -8688,7 +8695,7 @@ Communications.</p>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
 Version 1.2.0<br>
-Last updated 2026-10-21 13:05:18 UTC
+Last updated 2026-11-23 09:37:35 UTC
 </div>
 </div>
 
